@@ -1,0 +1,129 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Staatliches);
+* {
+	font-family: Staatliches;
+}
+
+/*
+* header
+*/
+#header {
+	width: 100%;
+	height: 100px;
+	padding: 10px 0 10px 10px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	background-color: #343d46;
+	position: relative;
+}
+#header h1 {
+	position: absolute;
+	bottom: 0;
+	height: 50px;
+	font-size: 56pt;
+	color: #c0c0c0;
+	cursor: pointer;
+	/* border: 1px solid white; */
+}
+
+/*
+* menu bar
+*/
+nav {
+	/* border: 1px solid black; */
+	width: 100%;
+	height: 70px;
+	background-color: #343d46;
+	position: relative;
+}
+nav #component {
+	position: absolute;
+	left: 12px;
+	top: 9px;
+	font-weight: bold;
+	text-align: left;
+	color: #787878;
+	overflow: hidden;
+}
+nav #menu {
+	position: absolute;
+	right: 8px;
+	bottom: 0;
+	overflow: hidden;
+	font-size: 11pt;
+	color: #343434;
+}
+nav a {
+	color: #343434;
+	text-decoration: none;
+}
+nav #menu li {
+	list-style: none;
+	float: left;
+	padding: 15px;
+}
+nav #menu li:nth-child(2n):hover {
+	background-color: #000000;
+	color: #ffffff;
+	cursor: pointer;
+}
+nav #menu li:nth-child(2n+1):hover {
+	background-color: #aaaaaa;
+	color: #000000;
+	cursor: pointer;	
+}
+nav #menu li:first-child {
+	border-radius: 10px 0 0 10px;
+}
+nav #menu li:last-child {
+	border-radius: 0 10px 10px 0;
+}
+nav #menu li:nth-child(2n) {
+	background-color: #787856;
+}
+nav #menu li:nth-child(2n+1) {
+	background-color: #9a9e78;
+}
+
+/*
+* article
+*/
+#wrap {
+	border: 1px solid black;
+	position: relative;
+	width: 100%;
+	height: 500px;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: #565e46;
+	color: #343434;
+	overflow: hidden;
+}
+#wrap #aside {
+	float: left;
+	width: 200px;
+	height: 500px;
+	background-color: #9a9e78;
+}
+#wrap #content {
+	float: left;
+	width: 70%;
+	height: 500px;
+	padding-left: 20px;
+	background-color: #787856;
+}
+
+/*
+* footer
+*/
+#footer {
+	width: 100%;
+	height: 110px;
+	padding: 10px 0 10px 20px;
+	box-sizing: border-box;
+	margin: 10px auto;
+	background-image: url('../images/camel.png');
+	background-size: contain;
+	color: #efefef;
+	font-weight: bold;
+}
