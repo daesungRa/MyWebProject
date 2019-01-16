@@ -1,5 +1,10 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="com.myweb.memberBean.DBConn"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,16 +13,19 @@
 <meta http-equiv='Pragma' content='no-cache' />
 <meta http-equiv='Expires' content='1' />
 <title>회원가입</title>
-<link rel='stylesheet' href='../styleTest/member.css' />
-<script src='../js/member.js'></script>
+<script src='./js/member.js'></script>
 </head>
 <body>
 
 	<div id='insert'>
 		<h1 id='title'>회원가입</h1>
-		<form name='member' method='post' action='insert_result.jsp'>
+		<form name='member' method='post' action='index.jsp'>
+			<input type='hidden' name='aside' value='./control.jsp' />
+			<input type='hidden' name='content' value='./views/member/insert_result.jsp' />
 			<label>아이디</label>
-			<input type='text' name='id' class='item' value='hong' /><br/>
+			<input type='text' name='id' class='item' value='hong' />
+			<input type='button' name='btnIdCheck' value='중복체크' />
+			<input type='text' name='isChecked' value='unChecked' disabled/><br/>
 			<label>이 름</label>
 			<input type='text' name='irum' class='item' value='gildong' /><br/>
 			<label>비밀번호</label>
@@ -50,6 +58,7 @@
 	</div>
 	
 	<script>
+		// 여기에 아이디 중복 확인 및 우편번호 로직 추가
 		mainInsert();
 	</script>
 

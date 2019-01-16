@@ -9,6 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Page</title>
+<link rel='stylesheet' href='../../css/index_large.css' media='screen and (min-width: 800px)' />
+<link rel='stylesheet' href='../../css/index_mini.css' media='screen and (max-width: 799px)' />
+<style>
+
+</style>
 <script>
 	function funcLogin () {
 		var frm = document.frm;
@@ -22,6 +27,8 @@
 </script>
 </head>
 <body>
+
+	<%@ include file="../main/header.jsp" %>
 
 	<div id='login'>
 		<h1>gooogle</h1>
@@ -41,36 +48,39 @@
 		</form>
 		
 		<%
-			if (request.getMethod().equals("GET")) return;
-			// 순수 JSP 를 사용한 DB 연결
-			String id = request.getParameter("id");
-			String pwd = request.getParameter("pwd");
-			
-			Connection conn = new DBConn().getConn();
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			
-			String sql = " select * from member where id = ? and pwd = ? ";
-			
-			try {
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, id);
-				ps.setString(2, pwd);
-				rs = ps.executeQuery();
-				if (rs.next()) {
-					out.println("방가방가!");
-					String name = rs.getString("name");
-					session.setAttribute("name", name);
-					response.sendRedirect("/index.jsp");
-				} else {
-					out.println("안 방가..");
+			if (request.getMethod().equals("POST")) {
+				// 순수 JSP 를 사용한 DB 연결
+				String id = request.getParameter("id");
+				String pwd = request.getParameter("pwd");
+				
+				Connection conn = new DBConn().getConn();
+				PreparedStatement ps = null;
+				ResultSet rs = null;
+				
+				String sql = " select * from member where id = ? and pwd = ? ";
+				
+				try {
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, id);
+					ps.setString(2, pwd);
+					rs = ps.executeQuery();
+					if (rs.next()) {
+						out.println("방가방가!");
+						String name = rs.getString("name");
+						session.setAttribute("name", name);
+						response.sendRedirect("/index.jsp");
+					} else {
+						out.println("안 방가..");
+					}
+				} catch (Exception ex) {
+					out.println(ex.toString());
 				}
-			} catch (Exception ex) {
-				out.println(ex.toString());
 			}
 			
 		%>
 	</div>
+	
+	<%@ include file="../main/footer.jsp" %>
 
 </body>
 </html>

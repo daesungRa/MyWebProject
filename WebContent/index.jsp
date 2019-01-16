@@ -62,9 +62,8 @@
 		%>
 	</div>
 	
-	<header id='header'>
-		<h1 id='title'>My Home Page</h1>
-	</header>
+	<%@ include file="./views/main/header.jsp" %>
+
 	<nav>
 		<div id='component'>
 			<jsp:include page="<%=component %>" />
@@ -78,6 +77,7 @@
 			<li>jQuery</li>
 			<li><a href="index.jsp?aside=./views/index_jsp.jsp">JSP</a></li>
 			<li>Spring</li>
+			<li><a href="index.jsp?aside=./control.jsp">Control</a></li>
 		</ul>
 	</nav>
 	<section id='wrap'>
@@ -92,9 +92,8 @@
 			</h1>
 		</article>
 	</section>
-	<footer id='footer'>
-		<h1>Copyleft: daesungRa</h1>
-	</footer>
+	
+	<%@ include file="./views/main/footer.jsp" %>
 
 	<script>indexMain();</script>
 
