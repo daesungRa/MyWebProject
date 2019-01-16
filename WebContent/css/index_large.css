@@ -1,7 +1,17 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Staatliches);
-* {
+@import url(https://fonts.googleapis.com/css?family=Vollkorn);
+#header, nav, #wrap>#aside {
 	font-family: Staatliches;
+}
+#wrap>#content, #footer {
+	font-family: Vollkorn;
+}
+
+#log {
+	height: 28px;
+	padding: 5px 5px 0 0;
+	text-align: right;
 }
 
 /*
@@ -92,7 +102,7 @@ nav #menu li:nth-child(2n+1) {
 	border: 1px solid black;
 	position: relative;
 	width: 100%;
-	height: 500px;
+	height: 800px;
 	padding: 0;
 	box-sizing: border-box;
 	background-color: #565e46;
@@ -102,13 +112,12 @@ nav #menu li:nth-child(2n+1) {
 #wrap #aside {
 	float: left;
 	width: 200px;
-	height: 500px;
+	text-align: center;
 	background-color: #9a9e78;
 }
 #wrap #content {
 	float: left;
-	width: 70%;
-	height: 500px;
+	width: 65%;
 	padding-left: 20px;
 	background-color: #787856;
 }
