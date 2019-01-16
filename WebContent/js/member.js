@@ -53,12 +53,8 @@ function mainInsert() {
             id.focus();
             alert('pla input id..');
         } else {
-            win = window.open('./views/member/idCheck.jsp', 'win', 'width: 200px; height: 50px;, toolbar=no');
-
-            win.onload = function () {
-                frm.isChecked.value = win.checkId(id.value);
-                // win.close();
-            }
+        	var uri = './views/member/idCheck.jsp?id=' + id.value;
+            var win = window.open(uri, 'win', 'width: 200px; height: 50px;, resizable=no, toolbar=no');
         }
     }
 
@@ -69,10 +65,10 @@ function mainInsert() {
         if (obj != null) {
             if (obj.value == 'unChecked') {
                 frm.id.focus();
-                alert('아이디 중복확인해 주세요...');
+                alert('아이디 중복확인해 주세요');
             } else {
                 obj.focus();
-                alert('데이터를 확인해 주세요...');
+                alert('데이터를 확인해 주세요');
             }
             return false;
         }
