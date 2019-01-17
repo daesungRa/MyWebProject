@@ -13,6 +13,7 @@
 		
 		<ul>
 			<li><a href='index.jsp?aside=./control.jsp&content=./views/member/insert.jsp'>학생 입력</a></li>
+			<li><a href='index.jsp?aside=./control.jsp&content=./views/member/list.jsp'>학생 조회</a></li>
 			<li>게 시 판</li>
 			<li>방 명 록</li>
 			<li>성적 관리</li>

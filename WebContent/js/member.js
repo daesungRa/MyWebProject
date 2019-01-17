@@ -75,7 +75,6 @@ function mainInsert() {
         frm.submit();
     }
 }
-
 function imagePreView (e) {
     var frm = document.member;
     var url = e.srcElement;
@@ -88,7 +87,6 @@ function imagePreView (e) {
         frm.image.src = img.src;
     }
 }
-
 function inputDataCheck (frm) {
     var obj = null;
     var emailExp01 = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
@@ -106,3 +104,69 @@ function inputDataCheck (frm) {
 
     return obj; // ok == null, data err == data
 }
+
+
+
+
+/**
+ * refer by insert.jsp
+ */
+function mainList () {
+    var frm = document.member;
+
+    // 검색창 전체선택
+    frm.search.onfocus = function () {
+        frm.search.select();
+    }
+
+    // 검색
+    frm.btnSearch.onclick = function () {
+        // get 방식이므로 사용하지 않음. action 속성이 없으므로 자기 자신한테 form 전송
+        // frm.action = 'index.jsp?aside=./control.jsp&content=./views/member/list.jsp';
+        frm.submit();
+    }
+
+    // 전체검색
+    frm.btnSearchAll.onclick = function () {
+        frm.search.value = 'SelectAll';
+        frm.submit();
+    }
+}
+
+// id 클릭 시 modify 함수 실행
+function modify (id) {
+    var frm = document.member;
+    var url = 'index.jsp?aside=./control.jsp&content=./views/member/modify.jsp';
+    // 검색한 id 대입. form 태그로 전송할 것
+    frm.id.value = id;
+    frm.action = url;
+    frm.submit();
+}
+
+
+
+
+
+/**
+ * refer by insert.jsp
+ */
+function mainModify () {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

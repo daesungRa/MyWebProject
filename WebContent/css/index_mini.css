@@ -49,9 +49,9 @@ nav #component {
 }
 nav #menu {
 	display: inline-block;
-	width: 410px;
+	width: 420px;
 	overflow: hidden;
-	font-size: 14pt;
+	font-size: 12pt;
 	color: #343434;
 	/* border: 1px solid red; */
 }

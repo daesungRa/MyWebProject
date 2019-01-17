@@ -1,0 +1,120 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Staatliches);
+
+/*
+	공통
+*/
+* {
+	font-family: Staatliches;
+}
+div#insert label, div#modify label, div#view label {
+	display: inline-block;
+	width: 75px;
+	text-align: right;
+	margin-right: 5px;
+}
+div#insert input[type=button], div#modify input[type=button] {
+	width: 80px;
+	height: 35px;
+	margin-top: 10px;
+	margin-left: 86px;
+}
+div#insert select, div#modify select {
+	width: 80px;
+}
+
+/*
+	insert.jsp
+*/
+div#insert {
+}
+div#insert #image {
+	position: absolute;
+	top: 80px;
+	left: 370px;
+}
+
+/*
+	modify.jsp
+*/
+div#modify input[type=button] {
+	width: 80px;
+	height: 35px;
+}
+
+/*
+	view.jsp
+*/
+div#view input[type=button] {
+	width: 80px;
+	height: 35px;
+	margin-top: 10px;
+	margin-left: 86px;
+}
+
+/*
+	list.jsp
+*/
+div#list {
+	width: 100%;
+	margin: 100px auto;
+}
+div#list #title {
+	font-size: 18pt;
+}
+div#list #title #damuni {
+	width: 80px;
+	float: left;
+	margin-right: 10px;
+}
+div#list form {
+	text-align: right;
+}
+div#list > #subject {
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	margin-top: 5px;
+	padding: 10px 0 10px 0;
+	font-size: 16pt;
+}
+div#list span {
+	display: inline-block;
+}
+div#list .no {
+	/* width: 50px; */
+	width: 8%;
+}
+div#list .id {
+	/* width: 100px; */
+	width: 13%;
+	cursor: pointer;
+}
+div#list .name {
+	/* width: 100px; */
+	width: 13%;
+}
+div#list .phone {
+	/* width: 200px; */
+	width: 28%;
+}
+div#list .email {
+	/* width: 200px; */
+	width: 28%;
+}
+div#list > #memberList {
+	padding: 5px 0 5px 0;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+div#list #btnZone{
+	margin: 5px auto;
+	text-align: center;
+}
+div#list #btnZone input[type=button] {
+	margin-right: 5px;
+}
+div#list #btnZone .btnCircle {
+	border-radius: 20px;
+}
