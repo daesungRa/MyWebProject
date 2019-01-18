@@ -25,7 +25,7 @@
 			<label>아이디</label>
 			<input type='text' name='id' class='item' value='hong' />
 			<input type='button' name='btnIdCheck' value='중복체크' />
-			<input type='text' name='isChecked' value='unChecked' disabled/><br/>
+			<input type='text' name='isChecked' value='unChecked' readonly/><br/>
 			<label>이 름</label>
 			<input type='text' name='irum' class='item' value='gildong' /><br/>
 			<label>비밀번호</label>

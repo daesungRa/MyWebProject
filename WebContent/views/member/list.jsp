@@ -92,8 +92,8 @@
 					<div class='row'>
 						<span class='no'></span>
 						<span class='id'></span>
-						<span class='name'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;검</span>
-						<span class='phone'>색어를 입력해 주세요!</span>
+						<span class='name'></span>
+						<span class='phone'>검색어를 입력해 주세요!</span>
 						<span class='email'></span>
 					</div>
 			<%

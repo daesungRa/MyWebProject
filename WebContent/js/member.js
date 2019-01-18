@@ -1,3 +1,34 @@
+
+function imagePreView (e) {
+    var frm = document.member;
+    var url = e.srcElement;
+    var file = url.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function (e2) {
+        var img = new Image();
+        img.src = e2.target.result;
+        frm.image.src = img.src;
+    }
+}
+function inputDataCheck (frm) {
+    var obj = null;
+    var emailExp01 = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
+    var emailExp02 = /^\w+@\w+.\w(.\w){1,2}/;
+    var phoneExp01 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+    var phoneExp02 = /^\d{2,3}-\d{3,4}-\d{4}$/;
+
+    if (frm.id.value == '') obj = frm.id;
+    else if (frm.isChecked.value == 'unChecked') obj = frm.isChecked;
+    else if (frm.irum.value == '') obj = frm.irum;
+    else if (frm.pwd.value == '') obj = frm.pwd;
+    else if (frm.rdate.value == '') obj = frm.rdate;
+    else if (!emailExp02.test(frm.email.value)) obj = frm.email;
+    else if (!phoneExp02.test(frm.phone.value)) obj = frm.phone;
+
+    return obj; // ok == null, data err == data
+}
+
 /**
  * refer by insert.jsp
  */
@@ -51,7 +82,7 @@ function mainInsert() {
         var id = frm.id;
         if (id.value == '') {
             id.focus();
-            alert('pla input id..');
+            alert('plz input id..');
         } else {
         	var uri = './views/member/idCheck.jsp?id=' + id.value;
             var win = window.open(uri, 'win', 'width: 200px; height: 50px;, resizable=no, toolbar=no');
@@ -75,36 +106,6 @@ function mainInsert() {
         frm.submit();
     }
 }
-function imagePreView (e) {
-    var frm = document.member;
-    var url = e.srcElement;
-    var file = url.files[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function (e2) {
-        var img = new Image();
-        img.src = e2.target.result;
-        frm.image.src = img.src;
-    }
-}
-function inputDataCheck (frm) {
-    var obj = null;
-    var emailExp01 = /^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$/;
-    var emailExp02 = /^\w+@\w+.\w(.\w){1,2}/;
-    var phoneExp01 = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-    var phoneExp02 = /^\d{2,3}-\d{3,4}-\d{4}$/;
-
-    if (frm.id.value == '') obj = frm.id;
-    else if (frm.isChecked.value == 'unChecked') obj = frm.isChecked;
-    else if (frm.irum.value == '') obj = frm.irum;
-    else if (frm.pwd.value == '') obj = frm.pwd;
-    else if (frm.rdate.value == '') obj = frm.rdate;
-    else if (!emailExp02.test(frm.email.value)) obj = frm.email;
-    else if (!phoneExp02.test(frm.phone.value)) obj = frm.phone;
-
-    return obj; // ok == null, data err == data
-}
-
 
 
 
@@ -148,11 +149,63 @@ function modify (id) {
 
 
 /**
- * refer by insert.jsp
+ * refer by modify.jsp
  */
 function mainModify () {
+    var frm = document.member;
 
+    frm.irum.focus();
+    frm.irum.select();
 
+    // 다 입력한게 아니라면 엔터키 누르면 커서 이동
+    var items = document.getElementsByClassName('item');
+    for (var i = 0; i < items.length; i++) {
+        items[i].onkeyup = function (ev) {
+            if (ev.keyCode == 13) {
+                var obj = null;
+                switch (ev.srcElement.name) {
+                    case 'irum':
+                        obj = frm.email;
+                        break;
+                    case 'email':
+                        obj = frm.phone;
+                        break;
+                    case 'phone':
+                        obj = frm.rdate;
+                        break;
+                }
+                obj.focus();
+                obj.select();
+            }
+        }
+    }
+
+    // 이미지를 선택하거나 수정한 경우
+    frm.photo.onchange = imagePreView;
+
+    // 전송 버튼이 클릭된 경우
+    frm.btnSubmit.onclick = function () {
+        var obj = inputDataCheck(frm);
+        // obj 가 null 이면, submit 이 그대로 실행됨
+        if (frm.photo.value != '') {
+            frm.photoName.value = frm.photo.files[0].name;
+        }
+        if (obj != null) {
+            obj.focus();
+            alert('데이터를 확인해 주세요');
+            return false;
+        }
+        frm.submit();
+    }
+
+    frm.btnDelete.onclick = function () {
+        frm.action = 'index.jsp?aside=./control.jsp&content=./views/member/delete.jsp';
+        frm.submit();
+    }
+
+    frm.btnCancel.onclick = function () {
+        history.back();
+    }
 }
 
 

@@ -82,6 +82,9 @@ div#list > #subject {
 div#list span {
 	display: inline-block;
 }
+div#list .row:hover {
+	background: #999999;
+}
 div#list .no {
 	/* width: 50px; */
 	width: 8%;
