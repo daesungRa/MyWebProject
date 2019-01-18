@@ -68,7 +68,8 @@
 						out.println("방가방가!");
 						String name = rs.getString("name");
 						session.setAttribute("name", name);
-						response.sendRedirect("/index.jsp");
+						// response.sendRedirect("/index.jsp");
+						pageContext.forward("/index.jsp");
 					} else {
 						out.println("안 방가..");
 					}

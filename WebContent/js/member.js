@@ -199,8 +199,12 @@ function mainModify () {
     }
 
     frm.btnDelete.onclick = function () {
-        frm.action = 'index.jsp?aside=./control.jsp&content=./views/member/delete.jsp';
-        frm.submit();
+        var result = confirm("삭제할거?");
+        
+        if (result){
+            frm.action = 'index.jsp?aside=./control.jsp&content=./views/member/delete.jsp';
+            frm.submit();
+        }
     }
 
     frm.btnCancel.onclick = function () {
