@@ -1,9 +1,13 @@
+<%@page import="com.myweb.memberBean.MemberVo"%>
+<%@page import="com.myweb.memberDao.MemberDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="com.myweb.memberBean.DBConn"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:useBean id="vo" class="com.myweb.memberBean.MemberVo" scope="page"/>
+<jsp:setProperty name="vo" property="*" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,37 +48,24 @@
 			
 			<a href='#' >아이디 찾기</a>
 			<a href='#' >비밀번호 찾기</a>
-			<a href='insert.jsp' >회원가입</a>
+			<a href='/index.jsp?aside=/control.jsp&content=/views/member/insert.jsp' >회원가입</a>
 		</form>
 		
 		<%
 			if (request.getMethod().equals("POST")) {
-				// 순수 JSP 를 사용한 DB 연결
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
 				
-				Connection conn = new DBConn().getConn();
-				PreparedStatement ps = null;
-				ResultSet rs = null;
+				MemberDao dao = new MemberDao();
+				vo = dao.login(vo);
 				
-				String sql = " select * from member where id = ? and pwd = ? ";
-				
-				try {
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, id);
-					ps.setString(2, pwd);
-					rs = ps.executeQuery();
-					if (rs.next()) {
-						out.println("방가방가!");
-						String name = rs.getString("name");
-						session.setAttribute("name", name);
-						// response.sendRedirect("/index.jsp");
-						pageContext.forward("/index.jsp");
-					} else {
-						out.println("안 방가..");
-					}
-				} catch (Exception ex) {
-					out.println(ex.toString());
+				if (vo != null) {
+					String name = vo.getIrum();
+					session.setAttribute("name", name);
+					response.sendRedirect("/index.jsp");
+				} else {
+					out.println("<script>alert('로그인 실패')</script>");
+					// response.sendRedirect("/index.jsp");
 				}
 			}
 			

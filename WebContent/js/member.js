@@ -84,8 +84,8 @@ function mainInsert() {
             id.focus();
             alert('plz input id..');
         } else {
-        	var uri = './views/member/idCheck.jsp?id=' + id.value;
-            var win = window.open(uri, 'win', 'width: 200px; height: 50px;, resizable=no, toolbar=no');
+        	var url = './views/member/idCheck.jsp?id=' + id.value;
+            var win = window.open(url, 'win', 'width: 200px; height: 50px;, resizable=no, toolbar=no');
         }
     }
 
@@ -186,10 +186,11 @@ function mainModify () {
     // 전송 버튼이 클릭된 경우
     frm.btnSubmit.onclick = function () {
         var obj = inputDataCheck(frm);
-        // obj 가 null 이면, submit 이 그대로 실행됨
         if (frm.photo.value != '') {
             frm.photoName.value = frm.photo.files[0].name;
         }
+        // 비번체크
+        // obj 가 null 이면, submit 이 그대로 실행됨
         if (obj != null) {
             obj.focus();
             alert('데이터를 확인해 주세요');
