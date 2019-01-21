@@ -1,3 +1,4 @@
+<%@page import="com.myweb.memberDao.MemberDao"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="com.myweb.memberBean.DBConn"%>
 <%@page import="java.sql.Connection"%>
@@ -19,36 +20,14 @@
 	
 		// 대상 멤버의 정보 수정
 		if (request.getMethod().equals("POST")) {
-			Connection conn = new DBConn().getConn();
-			PreparedStatement ps = null;
+			MemberDao dao = new MemberDao();
 			
-			// 아이디, 최초등록일은 수정 불가
-			// 비번은 확인용이고, 비번변경은 추가 페이지에서 처리
-			String sql = " update member set name = ?, email = ?, phone = ?, postal = ?, address = ?, photo = ?, grade = ? "
-							+ "	where id = ? ";
-			
-			try {
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, request.getParameter("irum"));
-				ps.setString(2, request.getParameter("email"));
-				ps.setString(3, request.getParameter("phone"));
-				ps.setString(4, request.getParameter("postal"));
-				ps.setString(5, request.getParameter("address"));
-				ps.setString(6, request.getParameter("photoName"));
-				ps.setInt(7, Integer.parseInt(request.getParameter("grade")));
-				ps.setString(8, request.getParameter("id"));
-				int result = ps.executeUpdate();
-				
-				if (result > 0 ) {
-					message = "멤버 정보 수정에 성공하였습니다";
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			} finally {
-				try {
-					if (ps != null) ps.close();
-					if (conn!= null) conn.close();
-				} catch (Exception ex) { }
+			// 비번이 틀렸다면
+			if (dao.login(vo) == null) {
+				message = "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다";
+			// 비번이 일치하고 수정에 성공했다면
+			} else if (dao.modify(vo)) {
+				message = "멤버 정보 수정에 성공하였습니다";
 			}
 		}
 	%>

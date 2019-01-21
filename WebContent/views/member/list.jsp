@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="com.myweb.memberBean.MemberVo"%>
+<%@page import="com.myweb.memberDao.MemberDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="com.myweb.memberBean.DBConn"%>
@@ -42,50 +45,33 @@
 				String search = "";
 				if (request.getParameter("search") != null && !request.getParameter("search").equals("")) {
 					search = request.getParameter("search");
-				
-					Connection conn = new DBConn().getConn();
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					String sql = "";
+					MemberDao dao = new MemberDao();
+					List<MemberVo> list = null;
+					MemberVo vo = null;
 					
 					// 전체검색 클릭시 자동으로 "SelectAll" 이 입력됨
 					if (search.equals("SelectAll")) {
-						sql = " select * from member ";
-						
-						try {
-							ps = conn.prepareStatement(sql);
-							rs = ps.executeQuery();
-						} catch (Exception ex) { out.print(ex.toString()); }
+						list = dao.listAll();
 					} else {
-						sql = " select * from member where id like ? or name like ? or phone like ? ";
-						
-						try {
-							ps = conn.prepareStatement(sql);
-							ps.setString(1, "%" + search + "%");
-							ps.setString(2, "%" + search + "%");
-							ps.setString(3, "%" + search + "%");
-							rs = ps.executeQuery();
-						} catch (Exception ex) { out.print(ex.toString()); }
+						list = dao.list(search);
 					}
 					
-			%>
-		
-			<%
-					if (!rs.isBeforeFirst()) {
+					if (list.size() == 0) {
 						out.print("<script>alert('검색된 데이터가 없습니다')</script>");
 					}
-					int i = 1;
-					while (rs.next()) {
+					
+					int no = 1;
+					for (int i = 0; i < list.size(); i++) {
+						vo = list.get(i);
 			%>
 						<div class='row'>
-							<span class='no'><%=i %></span>
-							<span class='id'><a href='#' onclick='modify(this.innerHTML)'><%=rs.getString("id") %></a></span>
-							<span class='name'><%=rs.getString("name") %></span>
-							<span class='phone'><%=rs.getString("phone") %></span>
-							<span class='email'><%=rs.getString("email") %></span>
+							<span class='no'><%=no %></span>
+							<span class='id'><a href='#' onclick='modify(this.innerHTML)'><%=vo.getId() %></a></span>
+							<span class='name'><%=vo.getIrum() %></span>
+							<span class='phone'><%=vo.getPhone() %></span>
+							<span class='email'><%=vo.getEmail() %></span>
 						</div>
 			<%
-						i++;
 					}
 				} else {
 			%>

@@ -1,3 +1,5 @@
+<%@page import="com.myweb.memberBean.MemberVo"%>
+<%@page import="com.myweb.memberDao.MemberDao"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="com.myweb.memberBean.DBConn"%>
@@ -22,7 +24,6 @@
 		// 추후 vo 로 전환
 		String id = null;
 		String name = null;
-		String pwd = null;
 		String email = null;
 		String phone = null;
 		String rdate = null;
@@ -35,41 +36,24 @@
 			id = request.getParameter("id");
 			// out.print("<script>alert(" + id + ")</script>");
 			
-			String sql = " select * from member where id = ? ";
+			MemberDao dao = new MemberDao();
+			MemberVo vo = dao.view(id);
 			
-			Connection conn = new DBConn().getConn();
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			
-			try {
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, id);
-				rs = ps.executeQuery();
-				
-				if (rs.next()) {
-					name = rs.getString("name");
-					pwd = rs.getString("pwd");
-					email = rs.getString("email");
-					phone = rs.getString("phone");
-					rdate = rs.getString("rdate");
-					postal = rs.getString("postal");
-					address = rs.getString("address");
-					photoOri = rs.getString("photo");
-					if (photoOri != null) {
-						photo = "./images/" + photoOri;
-					}
-					g = rs.getInt("grade");
-				} else {
-					out.print("<script>alert('해당 유저가 존재하지 않습니다')</script>");
+			// 반환된 vo 가 null 인가로 판별
+			if (vo != null) {
+				name = vo.getIrum();
+				email = vo.getEmail();
+				phone = vo.getPhone();
+				rdate = vo.getRdate();
+				postal = vo.getPostal();
+				address = vo.getAddress();
+				photoOri = vo.getPhoto();
+				if (photoOri != null) {
+					photo = "./images/" + photoOri;
 				}
-			} catch (Exception ex) {
-				out.print(ex.toString());
-			} finally {
-				try {
-					if (rs != null) rs.close();
-					if (ps != null) ps.close();
-					if (conn != null) conn.close();
-				} catch (Exception ex) { }
+				g = vo.getGrade();
+			} else {
+				out.print("<script>alert('해당 유저가 존재하지 않습니다')</script>");
 			}
 		}
 	%>

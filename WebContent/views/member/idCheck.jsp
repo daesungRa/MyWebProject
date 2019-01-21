@@ -21,13 +21,13 @@
 			// 기본 unChecked 이며, 사용 가능한 아이디일 시에만 checked 로 세팅됨
 			opener.member.isChecked.value = result;
 			if (result == 'checked') {
-				opener.member.id.disabled = true;
+				opener.member.id.readOnly = true;
 			}
 			self.close();
 		}
 		
 		btnCancel.onclick = function () {
-			opener.member.id.disabled0 = false;
+			opener.member.id.readOnly = false;
 			opener.member.isChecked.value = "unChecked";
 			self.close();
 		}

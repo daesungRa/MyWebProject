@@ -1,3 +1,4 @@
+<%@page import="com.myweb.memberDao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="vo" class="com.myweb.memberBean.MemberVo" scope="page"/>
@@ -12,25 +13,20 @@
 
 	<%
 		response.setCharacterEncoding("utf-8");
+		String message = "멤버 등록에 실패하였습니다.";
+		
+		MemberDao dao = new MemberDao();
+		boolean result = dao.insert(vo); // jsp:useBean 태그로 vo 자동생성됨
+		
+		if (result) {
+			message = "멤버 등록에 성공하였습니다.";
+		}
 	%>
-	<div>
-		<!-- 정보 찍어주고 -->
-		<ul>
-			<li>아이디: <%=vo.getId() %></li>
-			<li>성 명: <%=vo.getIrum() %></li>
-			<li>암 호: <%=vo.getPwd() %></li>
-			<li>이메일: <%=vo.getEmail() %></li>
-			<li>연락처: <%=vo.getPhone() %></li>
-			<li>가입일: <%=vo.getRdate() %></li>
-			<li>우편번호: <%=vo.getPostal() %></li>
-			<li>주 소: <%=vo.getAddress() %></li>
-			<li>증명사진: <%=vo.getPhoto() %></li>
-			<li>학 년: <%=vo.getGrade() %></li>
-		</ul>
-		
-		<!-- 여기다 DB 저장 로직 추가 -->
-		
-		<p>회원가입에 성공!</p>
+	
+	<div id='memInsert'>
+		<h1>Member Insert Page</h1>
+		<p><label>결과 : </label><%=message %></p>
+		<a href='index.jsp?aside=./control.jsp&content=./views/member/list.jsp'>돌아가기</a>
 	</div>
 
 </body>
