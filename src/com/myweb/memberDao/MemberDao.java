@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.myweb.memberBean.DBConn;
 import com.myweb.memberBean.MemberVo;
@@ -165,17 +167,24 @@ public class MemberDao {
 		return result;
 	}
 	
-	public List<MemberVo> list (String findStr) {
+	public List<MemberVo> list (String findStr, int startNum, int lastNum) {
 		List<MemberVo> memberList = new ArrayList<MemberVo>();
 		
 		try {
 			// 아이디, 최초등록일은 수정 불가
 			// 비번은 확인용이고, 비번변경은 추가 페이지에서 처리
-			final String sql = " select * from member where id like ? or name like ? or phone like ? ";
+			final String sql = " select * from ( "
+								+ "		select rownum rno, s.* from ( "
+								+ "			select * from member where id like ? or name like ? or phone like ? "
+								+ "			order by name "
+								+ "		) s "
+								+ "	) where rno between ? and ? ";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, "%" + findStr + "%");
 			ps.setString(2, "%" + findStr + "%");
 			ps.setString(3, "%" + findStr + "%");
+			ps.setInt(4, startNum);
+			ps.setInt(5, lastNum);
 			
 			rs = ps.executeQuery();
 			
@@ -200,14 +209,29 @@ public class MemberDao {
 		return memberList;
 	}
 	
-	public List<MemberVo> listAll () {
-		List<MemberVo> memberList = new ArrayList<MemberVo>();
+	// 목적 페이지 넘버만 받아서 그것에 해당하는 rno 를 알아서 계산해서 반환함
+	public Map<String, MemberVo> listAll (int pageNo) {
+		Map<String, MemberVo> memberMap = new HashMap<String, MemberVo>();
+		// pageNo 에 따른 rno 계산
+		// page		: 1, 2, 3, 4,  5,  6,  7
+		// startNo	: 1, 4, 7, 10, 13, 16, 19
+		// 차이		: 0, 2, 4, 6,  8,  10, 12
+		int startNo = pageNo + (2 * (pageNo - 1));
+		int lastNo = startNo + 2;
 		
 		try {
 			// 아이디, 최초등록일은 수정 불가
 			// 비번은 확인용이고, 비번변경은 추가 페이지에서 처리
-			final String sql = " select * from member ";
+			final String sql = " select * from ( "
+								+ "		select rownum rno, s.* from ( "
+								+ "			select * from member "
+								+ "			order by name "
+								+ "		) s "
+								+ "	) where rno between ? and ? ";
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, startNo);
+			ps.setInt(2, lastNo);
+			
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -217,7 +241,7 @@ public class MemberDao {
 				vo.setPhone(rs.getString("phone"));
 				vo.setEmail(rs.getString("email"));
 				
-				memberList.add(vo);
+				memberMap.put(String.valueOf(rs.getInt("rno")), vo);
 			}
 			
 		} catch (Exception ex) {
@@ -228,7 +252,11 @@ public class MemberDao {
 			} catch (Exception ex) { }
 		}
 		
-		return memberList;
+		return memberMap;
+	}
+	
+	public void pageCompute () {
+		
 	}
 	
 }

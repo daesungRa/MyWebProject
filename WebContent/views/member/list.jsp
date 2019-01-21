@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="com.myweb.memberBean.MemberVo"%>
 <%@page import="com.myweb.memberDao.MemberDao"%>
@@ -46,23 +47,23 @@
 				if (request.getParameter("search") != null && !request.getParameter("search").equals("")) {
 					search = request.getParameter("search");
 					MemberDao dao = new MemberDao();
-					List<MemberVo> list = null;
+					Map<String, MemberVo> map = null;
 					MemberVo vo = null;
 					
 					// 전체검색 클릭시 자동으로 "SelectAll" 이 입력됨
 					if (search.equals("SelectAll")) {
-						list = dao.listAll();
+						map = dao.listAll(2);
 					} else {
-						list = dao.list(search);
+						// map = dao.list(search, 1, 3);
 					}
 					
-					if (list.size() == 0) {
+					if (map.size() == 0) {
 						out.print("<script>alert('검색된 데이터가 없습니다')</script>");
 					}
 					
-					int no = 1;
-					for (int i = 0; i < list.size(); i++) {
-						vo = list.get(i);
+					int no = 4;
+					for (int i = 0; i < map.size(); i++) {
+						vo = map.get(Integer.toString(no));
 			%>
 						<div class='row'>
 							<span class='no'><%=no %></span>
@@ -72,6 +73,7 @@
 							<span class='email'><%=vo.getEmail() %></span>
 						</div>
 			<%
+						no++;
 					}
 				} else {
 			%>
