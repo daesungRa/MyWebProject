@@ -32,6 +32,7 @@
 			<input type='hidden' name='id' value='' />
 			<input type='button' name='btnSearch' value='검색' />
 			<input type='button' name='btnSearchAll' value='전체검색' />
+			<input type='hidden' name='nowPage' value='${(param.nowPage == null)? 1 : param.nowPage}' />
 		</form>
 		
 		<div id='subject'>
@@ -44,15 +45,21 @@
 		<div id='memberList'>
 			<%
 				String search = "";
+				int nowPage = 1;
+				MemberDao dao = new MemberDao();
+				
+				if (request.getParameter("nowPage") != null) {
+					nowPage = Integer.parseInt(request.getParameter("nowPage"));
+				}
+				
 				if (request.getParameter("search") != null && !request.getParameter("search").equals("")) {
 					search = request.getParameter("search");
-					MemberDao dao = new MemberDao();
 					Map<String, MemberVo> map = null;
 					MemberVo vo = null;
 					
 					// 전체검색 클릭시 자동으로 "SelectAll" 이 입력됨
 					if (search.equals("SelectAll")) {
-						map = dao.listAll(2);
+						map = dao.listAll(search, nowPage);
 					} else {
 						// map = dao.list(search, 1, 3);
 					}
@@ -61,7 +68,7 @@
 						out.print("<script>alert('검색된 데이터가 없습니다')</script>");
 					}
 					
-					int no = 4;
+					int no = dao.startNo;
 					for (int i = 0; i < map.size(); i++) {
 						vo = map.get(Integer.toString(no));
 			%>
@@ -90,19 +97,25 @@
 		</div>
 		
 		<div id='btnZone'>
-			<input type='button' value='HEAD' />
-			<input type='button' value='PRE' />
-			<input class='btnCircle' type='button' value='1' />
-			<input class='btnCircle' type='button' value='2' />
-			<input class='btnCircle' type='button' value='3' />
-			<input class='btnCircle' type='button' value='4' />
-			<input class='btnCircle' type='button' value='5' />
-			<input type='button' value='NEXT' />
-			<input type='button' value='TAIL' />
+			<%if (dao.nowBlock > 1) { %>
+				<input type='button' value='HEAD' onclick='movePage(1)' />
+				<input type='button' value='PRE' onclick='movePage(<%=dao.startPage - 1%>)' />
+			<%} %>
+			
+			<%for (int j = dao.startPage; j <= dao.endPage; j++) { %>
+				<input class='btnCircle' type='button' value=<%=j %> onclick='movePage(<%=j %>)' <%=(dao.nowPage == j)? "disabled" : "" %> />
+			<%} %>
+			<%if (dao.nowBlock < dao.totBlock) { %>
+				<input type='button' value='NEXT' onclick='movePage(<%=dao.endPage + 1 %>)' />
+				<input type='button' value='TAIL' onclick='movePage(<%=dao.totPage %>)' />
+			<%} %>
 		</div>
 	</div>
 	
 	<script>mainList()</script>
+	<script>
+		
+	</script>
 
 </body>
 </html>

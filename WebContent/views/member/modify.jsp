@@ -29,8 +29,8 @@
 		String rdate = null;
 		String postal = null;
 		String address = null;
-		String photo = "https://via.placeholder.com/150x200";
-		String photoOri = null;
+		// 이 페이지에서만 보여줄 총 파일 경로
+		String photoView = "https://via.placeholder.com/150x200";
 		int g = 0;
 		if (request.getMethod().equals("POST")) {
 			id = request.getParameter("id");
@@ -47,10 +47,7 @@
 				rdate = vo.getRdate();
 				postal = vo.getPostal();
 				address = vo.getAddress();
-				photoOri = vo.getPhoto();
-				if (photoOri != null) {
-					photo = "./images/" + photoOri;
-				}
+				photoView = "./images/upLoad/" + vo.getPhoto(); // 화면에 보여질 파일의 총 경로
 				g = vo.getGrade();
 			} else {
 				out.print("<script>alert('해당 유저가 존재하지 않습니다')</script>");
@@ -61,7 +58,7 @@
 	<div id='modifyPage'>
 		<h1 id='title'>Modify Member Info</h1>
 		<p>멤버정보 수정 페이지입니다</p>
-		<form name='member' method='post' action='index.jsp?aside=./control.jsp&content=./views/member/modify_result.jsp'>
+		<form name='member' method='post' action='index.jsp?aside=./control.jsp&content=./views/member/modify_result.jsp' enctype="multipart/form-data">
 			<label>아이디</label>
 			<input type='text' name='id' value='<%=id %>' readonly/><br/>
 			<input type='hidden' name='isChecked' value='checked' /><br/>
@@ -79,7 +76,6 @@
 			<input type='text' name='address' value=<%=address %> size='50' /><br/>
 			<label>증명사진</label>
 			<input type='file' name='photo' /><br/>
-			<input type='hidden' name='photoName' value=<%=photoOri %> /><br/>
 			<label>학 년</label>
 			<select size='4' name='grade'>
 				<option value='1' <%=(g==1)? "selected" : "" %>>1 학년</option>
@@ -89,7 +85,7 @@
 			</select><br/>
 			<label>비밀번호</label>
 			<input type="password" name='pwd' placeholder='선택된 유저의 암호를 입력하세요' size=40px;/><br/>
-			<img id='image' name='image' src=<%=photo %> width='150px' height='200px' />
+			<img id='image' name='image' src=<%=photoView %> width='150px' height='200px' />
 			<br/><br/>
 			
 			<input type='button' name='btnSubmit' value='수 정' />

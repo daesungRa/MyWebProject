@@ -19,7 +19,7 @@
 
 	<div id='insert'>
 		<h1 id='title'>회원가입</h1>
-		<form name='member' method='post' action='index.jsp'>
+		<form name='member' method='post' action='./views/member/insert_result.jsp' enctype="multipart/form-data">
 			<input type='hidden' name='aside' value='./control.jsp' />
 			<input type='hidden' name='content' value='./views/member/insert_result.jsp' />
 			<label>아이디</label>

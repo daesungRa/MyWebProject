@@ -110,7 +110,7 @@ function mainInsert() {
 
 
 /**
- * refer by insert.jsp
+ * refer by list.jsp
  */
 function mainList () {
     var frm = document.member;
@@ -124,6 +124,7 @@ function mainList () {
     frm.btnSearch.onclick = function () {
         // get 방식이므로 사용하지 않음. action 속성이 없으므로 자기 자신한테 form 전송
         // frm.action = 'index.jsp?aside=./control.jsp&content=./views/member/list.jsp';
+        frm.nowPage.value = 1;
         frm.submit();
     }
 
@@ -132,6 +133,12 @@ function mainList () {
         frm.search.value = 'SelectAll';
         frm.submit();
     }
+}
+
+function movePage(nowPage) {
+    var frm = document.member;
+	frm.nowPage.value = nowPage;
+	frm.submit();
 }
 
 // id 클릭 시 modify 함수 실행
@@ -180,15 +187,12 @@ function mainModify () {
         }
     }
 
-    // 이미지를 선택하거나 수정한 경우
+    // 이미지를 수정한 경우
     frm.photo.onchange = imagePreView;
 
     // 전송 버튼이 클릭된 경우
     frm.btnSubmit.onclick = function () {
         var obj = inputDataCheck(frm);
-        if (frm.photo.value != '') {
-            frm.photoName.value = frm.photo.files[0].name;
-        }
         // 비번체크
         // obj 가 null 이면, submit 이 그대로 실행됨
         if (obj != null) {
@@ -201,8 +205,10 @@ function mainModify () {
 
     frm.btnDelete.onclick = function () {
         var result = confirm("삭제할거?");
-        
+        // 비번 체크 로직
+
         if (result){
+            frm.enctype = null;
             frm.action = 'index.jsp?aside=./control.jsp&content=./views/member/delete.jsp';
             frm.submit();
         }
@@ -212,7 +218,6 @@ function mainModify () {
         history.back();
     }
 }
-
 
 
 

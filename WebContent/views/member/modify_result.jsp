@@ -1,11 +1,13 @@
+<%@page import="com.myweb.memberBean.MemberVo"%>
+<%@page import="com.myweb.fileuploadBean.FileUpload"%>
 <%@page import="com.myweb.memberDao.MemberDao"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="com.myweb.memberBean.DBConn"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="vo" class="com.myweb.memberBean.MemberVo" scope="page"/>
-<jsp:setProperty name="vo" property="*" />
+<%-- <jsp:useBean id="vo" class="com.myweb.memberBean.MemberVo" scope="page"/>
+<jsp:setProperty name="vo" property="*" /> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +23,11 @@
 		// 대상 멤버의 정보 수정
 		if (request.getMethod().equals("POST")) {
 			MemberDao dao = new MemberDao();
+			MemberVo vo = new FileUpload(request).getVo();
+			out.print(vo.getPhoto());			
 			
-			// 비번이 틀렸다면
-			if (dao.login(vo) == null) {
-				message = "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다";
-			// 비번이 일치하고 수정에 성공했다면
-			} else if (dao.modify(vo)) {
+			// 수정에 성공했다면 
+			if (dao.modify(vo)) {
 				message = "멤버 정보 수정에 성공하였습니다";
 			}
 		}
