@@ -75,7 +75,9 @@
 			<li>Ajax</li>
 			<li>MyBatis</li>
 			<li>jQuery</li>
-			<li><a href="index.jsp?aside=./views/index_jsp.jsp">JSP</a></li>
+			<li><a href='index.jsp?aside=./index_el.jsp'>EL</a></li>
+			<li><a href='index.jsp?aside=./index_jstl.jsp'>JSTL</a></li>
+			<li><a href="index.jsp?aside=./index_jsp.jsp">JSP</a></li>
 			<li>Spring</li>
 			<li><a href="index.jsp?aside=./control.jsp">Control</a></li>
 		</ul>

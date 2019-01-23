@@ -16,6 +16,7 @@
 <title>Modify Member Info</title>
 <link rel='stylesheet' href='./css/member.css' />
 <script src='./js/member.js'></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 
@@ -55,35 +56,35 @@
 		}
 	%>
 
-	<div id='modifyPage'>
+	<div id='modify'>
 		<h1 id='title'>Modify Member Info</h1>
 		<p>멤버정보 수정 페이지입니다</p>
 		<form name='member' method='post' action='index.jsp?aside=./control.jsp&content=./views/member/modify_result.jsp' enctype="multipart/form-data">
-			<label>아이디</label>
+			<label class='cont'>아이디</label>
 			<input type='text' name='id' value='<%=id %>' readonly/><br/>
 			<input type='hidden' name='isChecked' value='checked' /><br/>
-			<label>이 름</label>
+			<label class='cont'>이 름</label>
 			<input type='text' name='irum' class='item' value=<%=name %> /><br/>
-			<label>이메일</label>
+			<label class='cont'>이메일</label>
 			<input type='email' name='email' class='item' value=<%=email %> /><br/>
-			<label>연락처</label>
+			<label class='cont'>연락처</label>
 			<input type='text' name='phone' class='item' value=<%=phone %> /><br/>
-			<label>등록일</label>
+			<label class='cont'>등록일</label>
 			<input type="date" name='rdate' value=<%=rdate %> readonly/><br/>
-			<label>우편번호</label>
+			<label class='cont'>우편번호</label>
 			<input type='text' name='postal' value=<%=postal %> /><br/>
-			<label>주 소</label>
+			<label class='cont'>주 소</label>
 			<input type='text' name='address' value=<%=address %> size='50' /><br/>
-			<label>증명사진</label>
+			<label class='cont'>증명사진</label>
 			<input type='file' name='photo' /><br/>
-			<label>학 년</label>
+			<label class='cont'>학 년</label>
 			<select size='4' name='grade'>
 				<option value='1' <%=(g==1)? "selected" : "" %>>1 학년</option>
 				<option value='2'<%=(g==2)? "selected" : "" %>>2 학년</option>
 				<option value='3'<%=(g==3)? "selected" : "" %>>3 학년</option>
 				<option value='4'<%=(g==4)? "selected" : "" %>>4 학년</option>
 			</select><br/>
-			<label>비밀번호</label>
+			<label class='cont'>비밀번호</label>
 			<input type="password" name='pwd' placeholder='선택된 유저의 암호를 입력하세요' size=40px;/><br/>
 			<img id='image' name='image' src=<%=photoView %> width='150px' height='200px' />
 			<br/><br/>
@@ -91,6 +92,9 @@
 			<input type='button' name='btnSubmit' value='수 정' />
 			<input type='button' name='btnDelete' value='삭 제' />
 			<input type='button' name='btnCancel' value='취 소' />
+			
+			<input type='hidden' name='search' value='${param.search }' />
+			<input type='hidden' name='nowPage' value='${param.nowPage }' />
 		</form>
 	</div>
 	

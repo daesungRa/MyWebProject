@@ -13,36 +13,39 @@
 <meta http-equiv='Pragma' content='no-cache' />
 <meta http-equiv='Expires' content='1' />
 <title>회원가입</title>
+<link rel='stylesheet' href='./css/member.css' />
 <script src='./js/member.js'></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 
 	<div id='insert'>
 		<h1 id='title'>회원가입</h1>
-		<form name='member' method='post' action='./views/member/insert_result.jsp' enctype="multipart/form-data">
-			<input type='hidden' name='aside' value='./control.jsp' />
-			<input type='hidden' name='content' value='./views/member/insert_result.jsp' />
-			<label>아이디</label>
+		<form name='member' method='post' action='index.jsp?aside=./control.jsp&content=./views/member/insert_result.jsp' enctype="multipart/form-data">
+			<label class='cont'>아이디</label>
 			<input type='text' name='id' class='item' value='hong' />
 			<input type='button' name='btnIdCheck' value='중복체크' />
 			<input type='text' name='isChecked' value='unChecked' readonly/><br/>
-			<label>이 름</label>
+			<label class='cont'>이 름</label>
 			<input type='text' name='irum' class='item' value='gildong' /><br/>
-			<label>비밀번호</label>
+			<label class='cont'>비밀번호</label>
 			<input type="password" name='pwd' class='item' value='1111' /><br/>
-			<label>이메일</label>
+			<label class='cont'>이메일</label>
 			<input type='email' name='email' class='item' value='hong@gmail.com' /><br/>
-			<label>연락처</label>
+			<label class='cont'>연락처</label>
 			<input type='text' name='phone' class='item' value='010-1111-2222' /><br/>
-			<label>등록일</label>
+			<label class='cont'>등록일</label>
 			<input type="date" name='rdate' /><br/>
-			<label>우편번호</label>
-			<input type='text' name='postal' value='12-123' /><br/>
-			<label>주 소</label>
-			<input type='text' name='address' value='서울' size='50' /><br/>
-			<label>증명사진</label>
+			<label class='cont'>우편번호</label>
+			<input type='text' name='postal' value='12-123'  readonly/>
+			<input type='button' name='btnPostal' value='우편번호 검색' /><br/>
+			<label class='cont'>주 소</label>
+			<input type='text' name='address' placeholder='주소를 입력하세요' size='50' readonly/><br/>
+			<label class='cont'>추가주소</label>
+			<input type='text' name='addressAdd' placeholder='추가 주소를 입력하세요' size='50' /><br/>
+			<label class='cont'>증명사진</label>
 			<input type='file' name='photo' /><br/>
-			<label>학 년</label>
+			<label class='cont'>학 년</label>
 			<select size='4' name='grade'>
 				<option value='1' selected>1 학년</option>
 				<option value='2'>2 학년</option>

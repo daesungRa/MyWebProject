@@ -89,6 +89,11 @@ function mainInsert() {
         }
     }
 
+    // postal
+    frm.btnPostal.onclick = function () {
+        searchPostal();
+    }
+
     // 전송 버튼이 클릭된 경우
     frm.btnSubmit.onclick = function () {
         var obj = inputDataCheck(frm);
@@ -220,7 +225,18 @@ function mainModify () {
 }
 
 
-
+/*
+ * postal service
+ */
+function searchPostal () {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var frm = document.member;
+            frm.postal.value = data.zonecode;
+            frm.address.value = data.address;
+        }
+    }).open();
+}
 
 
 

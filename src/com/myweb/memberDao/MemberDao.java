@@ -21,7 +21,7 @@ public class MemberDao {
 	/*
 	 * paging variables
 	 */
-	public int listSize = 3;
+	public int listSize = 5;
 	public int blockSize = 5;
 	public int nowPage;
 	

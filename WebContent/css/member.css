@@ -27,16 +27,31 @@ div#insert select, div#modify select {
 	insert.jsp
 */
 div#insert {
+	position: relative;
 }
 div#insert #image {
 	position: absolute;
-	top: 80px;
-	left: 370px;
+	top: 100px;
+	left: 420px;
+}
+div#insert .cont {
+	width: 100px;
 }
 
 /*
 	modify.jsp
 */
+div#modify {
+	position: relative;
+}
+div#modify #image {
+	position: absolute;
+	top: 80px;
+	left: 450px;
+}
+div#modify .cont {
+	width: 100px;
+}
 div#modify input[type=button] {
 	width: 80px;
 	height: 35px;

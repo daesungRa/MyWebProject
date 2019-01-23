@@ -12,13 +12,18 @@ public class MemberVo {
 	private String photo;
 	private String photoOri;
 	private int grade;
-	
+
+	private String search;
+	private int nowPage;
+
 	/*
 	 * ===== constructor =====
 	 */
-	public MemberVo() { }
-	public MemberVo(String id, String irum, String pwd, String email, String phone, String rdate,
-			String postal, String address, String photo, String photoOri, int grade) {
+	public MemberVo() {
+	}
+
+	public MemberVo(String id, String irum, String pwd, String email, String phone, String rdate, String postal,
+			String address, String photo, String photoOri, int grade) {
 		this.id = id;
 		this.irum = irum;
 		this.pwd = pwd;
@@ -31,14 +36,14 @@ public class MemberVo {
 		this.photoOri = photoOri;
 		this.grade = grade;
 	}
-	
+
 	/*
 	 * Override method
 	 */
 	@Override
 	public boolean equals(Object obj) {
 		boolean flag = false;
-		
+
 		if (obj instanceof MemberVo) {
 			MemberVo vo = (MemberVo) obj;
 			if (vo.getId().equals(this.id) && vo.getIrum().equals(this.irum)) {
@@ -47,14 +52,14 @@ public class MemberVo {
 		}
 		return flag;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		// id 와 name 의 해시코드 더한 값
 		int code = id.hashCode() + irum.hashCode();
 		return code;
 	}
-	
+
 	/*
 	 * ===== getter & setter =====
 	 */
@@ -145,6 +150,21 @@ public class MemberVo {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	
-	
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public int getNowPage() {
+		return nowPage;
+	}
+
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
+	}
+
 }

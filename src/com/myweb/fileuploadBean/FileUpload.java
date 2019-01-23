@@ -43,6 +43,11 @@ public class FileUpload {
 			vo.setRdate(multi.getParameter("rdate"));
 			vo.setPhoto(sysFileName);
 			vo.setPhotoOri(oriFileName);
+			vo.setSearch(multi.getParameter("search"));
+			// insert.jsp 에서 사용하면 nowPage 가 null 이므로
+			if (multi.getParameter("nowPage") != null) {
+				vo.setNowPage(Integer.parseInt(multi.getParameter("nowPage")));
+			}
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();

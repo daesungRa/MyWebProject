@@ -31,7 +31,7 @@
 	<div id='memInsert'>
 		<h1>Member Insert Page</h1>
 		<p><label>결과 : </label><%=message %></p>
-		<a href='../../index.jsp?aside=./control.jsp&content=./views/member/list.jsp'>돌아가기</a>
+		<a href='../../index.jsp?aside=./control.jsp&content=./views/member/list.jsp'>회원 목록으로</a>
 	</div>
 
 </body>
