@@ -12,6 +12,7 @@
 		<h1>Logout Page</h1>
 		
 		<%
+			session.setAttribute("id", null);
 			session.setAttribute("name", null);
 			response.sendRedirect("/index.jsp");
 		%>

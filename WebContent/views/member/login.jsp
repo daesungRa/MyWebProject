@@ -61,6 +61,7 @@
 				
 				if (vo != null) {
 					String name = vo.getIrum();
+					session.setAttribute("id", id);
 					session.setAttribute("name", name);
 					response.sendRedirect("/index.jsp");
 				} else {

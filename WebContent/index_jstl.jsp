@@ -33,6 +33,7 @@
 			<!-- <li><input type='button' value='clock' onclick='movePage("dateObj.jsp")'></li>
 			<li><input type='button' value='one to ten' onclick='movePage("oneToTen.jsp")'></li> -->
 			<li onclick='movePage("./views/jstl/jstl_set_test.jsp")'>JSTL SET TEST</li>
+			<li onclick='movePage("./views/jstl/jstl_test.jsp")'>JSTL: if, choose, forEach, forTokens</li>
 		</ol>
 	</div>
 

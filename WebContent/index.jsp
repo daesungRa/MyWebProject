@@ -49,14 +49,14 @@
 	
 	<div id='log'>
 		<%
-			if (session.getAttribute("name") == null) {
-		%>
-				<input type='button' id='btnLogin' value='login' />
-		<%
-			} else {
+			if (session.getAttribute("name") != null && session.getAttribute("id") != null) {
 		%>
 				<b><%=session.getAttribute("name") %></b> 님 환영합니다&nbsp;
 				<input type='button' id='btnLogout' value='logout' />
+		<%
+			} else {
+		%>
+				<input type='button' id='btnLogin' value='login' />
 		<%
 			}
 		%>
@@ -78,6 +78,7 @@
 			<li><a href='index.jsp?aside=./index_el.jsp'>EL</a></li>
 			<li><a href='index.jsp?aside=./index_jstl.jsp'>JSTL</a></li>
 			<li><a href="index.jsp?aside=./index_jsp.jsp">JSP</a></li>
+			<li><a href="index.jsp?aside=./index_servlet.jsp">Servlet</a></li>
 			<li>Spring</li>
 			<li><a href="index.jsp?aside=./control.jsp">Control</a></li>
 		</ul>
