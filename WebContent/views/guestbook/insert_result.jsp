@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>방명록 수정</title>
+<title>방명록 입력</title>
 </head>
 <body>
 
 	<div id='modify'>
-		<h1>방명록 수정</h1>
+		<h1>방명록 입력</h1>
 	</div>
 
 </body>

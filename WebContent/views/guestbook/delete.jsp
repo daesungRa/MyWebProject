@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>방명록 삭제</title>
 </head>
 <body>
+
+	<div id='del'>
+		<h1>방명록 삭제</h1>
+	</div>
 
 </body>
 </html>
