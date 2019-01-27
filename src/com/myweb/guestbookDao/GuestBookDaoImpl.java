@@ -3,7 +3,10 @@ package com.myweb.guestbookDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.myweb.guestbookBean.GuestBookVo;
@@ -48,6 +51,30 @@ public class GuestBookDaoImpl implements GuestBookDao {
 	@Override
 	public boolean insert(GuestBookVo vo) {
 		boolean b = true;
+		final String sql = " insert into guestbook (serial, id, pwd, content) "
+							+ "	values (seq_guestbook.nextval, ?, ?, ?) ";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vo.getId());
+			ps.setString(2, vo.getPwd());
+			ps.setString(3, vo.getContent());
+			int result = ps.executeUpdate();
+			
+			if (result > 0) {
+			b = true;
+				System.out.println("insert success!");
+			} else {
+				System.out.println("insert fail");
+			}
+		
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				closeSet();
+			} catch (Exception ex) { }
+		}
 		
 		return b;
 	}
@@ -82,24 +109,58 @@ public class GuestBookDaoImpl implements GuestBookDao {
 	}
 
 	@Override
-	public boolean update(GuestBookVo vo) {
+	public boolean modify(GuestBookVo vo) {
 		boolean b = true;
+		final String sql = " update guestbook set content = ? where serial = ? ";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vo.getContent());
+			ps.setInt(2, vo.getSerial());
+			int result = ps.executeUpdate();
+			
+			if (result > 0) {
+				b = true;
+				System.out.println("modify success!");
+			} else {
+				System.out.println("modify fail");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		
 		return b;
 	}
 
 	@Override
-	public boolean delete(int serial) {
+	public boolean delete(GuestBookVo vo) {
 		boolean b = false;
+		final String sql = " delete from guestbook where serial = ? and pwd = ? ";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, vo.getSerial());
+			ps.setString(2, vo.getPwd());
+			int result = ps.executeUpdate();
+			
+			if (result > 0) {
+				b = true;
+				System.out.println("삭제 성공!");
+			} else {
+				System.out.println("삭제 실패");
+			}
+		} catch (SQLException se) {
+			
+		}
 		return b;
 	}
 
 	@Override
-	public Map<String, GuestBookVo> list(String search, int nowPage) {
+	public List<GuestBookVo> list(String search, int nowPage) {
 		this.nowPage = nowPage;
 		pageCompute(search);
 		
-		Map<String, GuestBookVo> data = new HashMap<String, GuestBookVo>();
+		List<GuestBookVo> data = new ArrayList<GuestBookVo>();
 		
 		try {
 			final String sql = " select * from ( "
@@ -111,21 +172,21 @@ public class GuestBookDaoImpl implements GuestBookDao {
 					+ "	) where rno between ? and ? ";
 			
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, search);
-			ps.setString(2, search);
-			ps.setInt(3, startNo);
-			ps.setInt(4, endNo);
+			ps.setString(1, "%" + search + "%");
+			ps.setString(2, "%" + search + "%");
+			ps.setInt(3, 1);
+			ps.setInt(4, 10);
 			
 			rs = ps.executeQuery();
 			
-			if (rs.next()) {
+			while (rs.next()) {
 				GuestBookVo vo = new GuestBookVo();
 				vo.setSerial(rs.getInt("serial"));
 				vo.setId(rs.getString("id"));
 				vo.setContent(rs.getString("content"));
 				vo.setmDate(rs.getString("mdate"));
 				
-				data.put(String.valueOf(vo.getSerial()), vo);
+				data.add(vo);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -154,6 +215,7 @@ public class GuestBookDaoImpl implements GuestBookDao {
 				ps.setString(2, "%" + search + "%");
 			}
 			rs = ps.executeQuery();
+			System.out.println("pageCompute 실행");
 			
 			if (rs.next()) {
 				totSize = rs.getInt("cnt");
