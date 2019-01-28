@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 		
 		if (btnLogin != null) {
 			btnLogin.onclick = function () {
-				location.href = './views/member/login.jsp';
+				location.href = 'index.jsp?content=./views/member/login.jsp';
 			}
 		}
 		if (btnLogout != null) {
@@ -48,18 +49,13 @@
 	%>
 	
 	<div id='log'>
-		<%
-			if (session.getAttribute("name") != null && session.getAttribute("id") != null) {
-		%>
-				<b><%=session.getAttribute("name") %></b> 님 환영합니다&nbsp;
-				<input type='button' id='btnLogout' value='logout' />
-		<%
-			} else {
-		%>
-				<input type='button' id='btnLogin' value='login' />
-		<%
-			}
-		%>
+		<c:if test="${sessionScope.id != null}">
+			<b><%=session.getAttribute("name") %></b> 님 환영합니다&nbsp;
+			<input type='button' id='btnLogout' value='logout' />
+		</c:if>
+		<c:if test="${sessionScope.id == null }">
+			<input type='button' id='btnLogin' value='login' />
+		</c:if>
 	</div>
 	
 	<%@ include file="./views/main/header.jsp" %>

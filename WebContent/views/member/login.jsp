@@ -32,13 +32,11 @@
 </head>
 <body>
 
-	<%@ include file="../main/header.jsp" %>
-
 	<div id='login'>
 		<h1>gooogle</h1>
 		
 		<!-- 별도의 action 속성이 없으면, 데이터가 자기 자신 페이지로 전송됨 -->
-		<form name='frm' method='POST'>
+		<form name='frm' method='POST' action="login.mb">
 			<label>아이디 : </label>
 			<input type='text' name='id' /><br/>
 			<label>비밀번호 : </label>
@@ -46,34 +44,11 @@
 			<input type='button' value='로 그 인' id='btnLogin' onclick='funcLogin()'/>
 			<p/>
 			
-			<a href='#' >아이디 찾기</a>
-			<a href='#' >비밀번호 찾기</a>
+			<a href='/index.jsp?aside=/control.jsp&content=/views/member/findId.jsp' >아이디 찾기</a>
+			<a href='/index.jsp?aside=/control.jsp&content=/views/member/findPwd.jsp' >비밀번호 찾기</a>
 			<a href='/index.jsp?aside=/control.jsp&content=/views/member/insert.jsp' >회원가입</a>
 		</form>
-		
-		<%
-			if (request.getMethod().equals("POST")) {
-				String id = request.getParameter("id");
-				String pwd = request.getParameter("pwd");
-				
-				MemberDao dao = new MemberDao();
-				vo = dao.login(vo);
-				
-				if (vo != null) {
-					String name = vo.getIrum();
-					session.setAttribute("id", id);
-					session.setAttribute("name", name);
-					response.sendRedirect("/index.jsp");
-				} else {
-					out.println("<script>alert('로그인 실패')</script>");
-					// response.sendRedirect("/index.jsp");
-				}
-			}
-			
-		%>
 	</div>
-	
-	<%@ include file="../main/footer.jsp" %>
 
 </body>
 </html>

@@ -42,7 +42,7 @@ public class GuestBookServlet extends HttpServlet {
 		System.out.println("page: " + page);
 		
 		// 요청 페이지에 따른 메서드 처리
-		GuestBookDao dao = new GuestBookDaoImpl();
+		GuestBookDaoImpl dao = new GuestBookDaoImpl();
 		
 		if (page.equals("viewGuestbook")) {
 			request.setAttribute("write", "true");
@@ -54,6 +54,12 @@ public class GuestBookServlet extends HttpServlet {
 		// 전체 검색 (입력 문자열이 공백이면 전체검색)
 		List<GuestBookVo> data = dao.list("", nowPage);
 		request.setAttribute("data", data);
+		request.setAttribute("nowBlock", dao.nowBlock);
+		request.setAttribute("startPage", dao.startPage);
+		request.setAttribute("endPage", dao.endPage);
+		request.setAttribute("nowPage", dao.nowPage);
+		request.setAttribute("totBlock", dao.totBlock);
+		request.setAttribute("totPage", dao.totPage);
 		
 		// servlet 을 사용하여 웹 페이지를 forward
 		page = "viewGuestbook";
@@ -79,15 +85,17 @@ public class GuestBookServlet extends HttpServlet {
 		System.out.println("page: " + page);
 		
 		// 요청 페이지에 따른 메서드 처리
-		GuestBookDao dao = new GuestBookDaoImpl();
+		GuestBookDaoImpl dao = new GuestBookDaoImpl();
+		List<GuestBookVo> data = null;
 		if (page.equals("list")) {
 			String search = request.getParameter("search");
 			if (request.getParameter("nowPage") != null) {
 				nowPage = Integer.parseInt(request.getParameter("nowPage"));
 			}
 			
-			List<GuestBookVo> data = dao.list(search, nowPage);
-			request.setAttribute("data", data);
+			data = dao.list(search, nowPage);
+			// 다음 페이지 검색을 위해 검색어를 저장
+			request.setAttribute("search", search);
 		} else if (page.equals("insert")) {
 			GuestBookVo vo = makeVo(request);
 			boolean b = dao.insert(vo);
@@ -117,12 +125,21 @@ public class GuestBookServlet extends HttpServlet {
 			} else {
 				request.setAttribute("msg", "데이터 삭제 중 오류 발생!");
 			}
+
 		}
 		
-		// 페이지 조립하고 forward
-		// 전체 검색 (입력 문자열이 공백이면 전체검색)
-		List<GuestBookVo> data = dao.list("", nowPage);
+		if (request.getParameter("search") == null) {
+			data = dao.list("", nowPage);
+		}
+		// 반환된 방명록 리스트, 현재 블럭, 시작 페이지, 끝 페이지, 현재 페이지, 전체 페이지 세팅
 		request.setAttribute("data", data);
+		request.setAttribute("nowBlock", dao.nowBlock);
+		request.setAttribute("startPage", dao.startPage);
+		request.setAttribute("endPage", dao.endPage);
+		request.setAttribute("nowPage", dao.nowPage);
+		request.setAttribute("totBlock", dao.totBlock);
+		request.setAttribute("totPage", dao.totPage);
+		// 페이지 조립하고 forward
 		page = "viewGuestbook";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url + page + ".jsp");
 		dispatcher.forward(request, response);

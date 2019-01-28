@@ -87,7 +87,68 @@ public class MemberDao {
 		return vo;
 	}
 	
-	// 비번까지 체크
+	public MemberVo view2 (MemberVo vo) {
+		String sql = "";
+		
+		try {
+			if (vo.getId() == null) {
+				// 아이디 찾기
+				sql = " select id from member where email = ? ";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, vo.getEmail());
+
+				rs = ps.executeQuery();
+				
+				if (rs.next()) {
+					vo.setId(rs.getString("id"));
+				}
+			} else if (vo.getPwd() == null) {
+				// 비번 찾기
+				sql = " select pwd from member where id = ? and email = ? ";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, vo.getId());
+				ps.setString(2, vo.getEmail());
+
+				rs = ps.executeQuery();
+				
+				if (rs.next()) {
+					vo = new MemberVo();
+					vo.setPwd(rs.getString("pwd"));
+				}
+			} else {
+				// 유저정보 조회
+				sql = " select * from member where id = ? and pwd = ? ";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, vo.getId());
+				ps.setString(2, vo.getPwd());
+
+				rs = ps.executeQuery();
+				
+				if (rs.next()) {
+					vo = new MemberVo();
+					vo.setId(rs.getString("id"));
+					vo.setIrum(rs.getString("name"));
+					vo.setEmail(rs.getString("email"));
+					vo.setPhone(rs.getString("phone"));
+					vo.setRdate(rs.getDate("rdate").toString());
+					vo.setPostal(rs.getString("postal"));
+					vo.setAddress(rs.getString("address"));
+					vo.setPhoto(rs.getString("photo"));
+					vo.setPhotoOri(rs.getString("photoOri"));
+					vo.setGrade(rs.getInt("grade"));
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				closeSet();
+			} catch (Exception ex) { }
+		}
+
+		return vo;
+	}
+	
 	public MemberVo login (MemberVo vo) {
 		MemberVo result = null;
 		
@@ -100,6 +161,7 @@ public class MemberDao {
 			
 			if (rs.next()) {
 				result = new MemberVo();
+				// 세션에 등록할 아이디와 이름만 세팅
 				result.setId(rs.getString("id"));
 				result.setIrum(rs.getString("name"));
 			}

@@ -21,8 +21,8 @@ public class GuestBookDaoImpl implements GuestBookDao {
 	/*
 	 * paging variables
 	 */
-	public int listSize = 10;
-	public int blockSize = 5;
+	public int listSize;
+	public int blockSize;
 	public int nowPage;
 	
 	public int totSize;
@@ -35,6 +35,8 @@ public class GuestBookDaoImpl implements GuestBookDao {
 	public int startPage;
 	
 	public GuestBookDaoImpl() {
+		this.listSize = 3;
+		this.blockSize = 5;
 		this.conn = new DBConn().getConn();
 	}
 	
@@ -70,10 +72,6 @@ public class GuestBookDaoImpl implements GuestBookDao {
 		
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-			try {
-				closeSet();
-			} catch (Exception ex) { }
 		}
 		
 		return b;
@@ -99,10 +97,6 @@ public class GuestBookDaoImpl implements GuestBookDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-			try {
-				closeSet();
-			} catch (Exception ex) { }
 		}
 		
 		return vo;
@@ -174,8 +168,8 @@ public class GuestBookDaoImpl implements GuestBookDao {
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, "%" + search + "%");
 			ps.setString(2, "%" + search + "%");
-			ps.setInt(3, 1);
-			ps.setInt(4, 10);
+			ps.setInt(3, startNo);
+			ps.setInt(4, endNo);
 			
 			rs = ps.executeQuery();
 			
