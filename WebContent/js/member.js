@@ -155,6 +155,15 @@ function modify (id) {
     frm.action = url;
     frm.submit();
 }
+// email 클릭 시 sendEmail 함수 실행
+function sendEmail (email) {
+    var frm = document.member;
+    var url = 'index.jsp?aside=./control.jsp&content=./views/email/email_form.jsp';
+    // 검색한 email 대입. form 태그로 전송할 것
+    frm.email.value = email;
+    frm.action = url;
+    frm.submit();
+}
 
 
 

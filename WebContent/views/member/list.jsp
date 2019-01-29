@@ -28,11 +28,12 @@
 		</div>
 		<form name='member' method='post'> <!-- action 속성을 생략하면 자기 자신을 호출한다 -->
 			<input type='search' name='search' value="${param.search}"/>
-			<input type='hidden' name='searchHidden' value='' />
-			<input type='hidden' name='id' value='' />
 			<input type='button' name='btnSearch' value='검색' />
 			<input type='button' name='btnSearchAll' value='전체검색' />
+			<input type='hidden' name='searchHidden' value='' />
+			<input type='hidden' name='id' value='' />
 			<input type='hidden' name='nowPage' value='${(param.nowPage == null)? 1 : param.nowPage}' />
+			<input type='hidden' name='email' />
 		</form>
 		
 		<div id='subject'>
@@ -77,7 +78,7 @@
 							<span class='id'><a href='#' onclick='modify(this.innerHTML)'><%=vo.getId() %></a></span>
 							<span class='name'><%=vo.getIrum() %></span>
 							<span class='phone'><%=vo.getPhone() %></span>
-							<span class='email'><%=vo.getEmail() %></span>
+							<span class='email'><a href='#' onclick='sendEmail(this.innerHTML)'><%=vo.getEmail() %></a></span>
 						</div>
 			<%
 						no++;

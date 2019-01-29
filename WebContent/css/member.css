@@ -120,6 +120,7 @@ div#list .phone {
 div#list .email {
 	/* width: 200px; */
 	width: 28%;
+	cursor: pointer;
 }
 div#list > #memberList {
 	padding: 5px 0 5px 0;

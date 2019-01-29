@@ -68,7 +68,7 @@
 			<li>HTML</li>
 			<li>CSS3</li>
 			<li>JS</li>
-			<li>Ajax</li>
+			<li><a href='index.jsp?aside=./index_ajax.jsp'>Ajax</a></li>
 			<li>MyBatis</li>
 			<li>jQuery</li>
 			<li><a href='index.jsp?aside=./index_el.jsp'>EL</a></li>
