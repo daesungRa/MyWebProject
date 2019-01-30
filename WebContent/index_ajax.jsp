@@ -12,7 +12,11 @@
 		<h1>Ajax Page</h1>
 		
 		<ul>
-			<li><a href='load_file.ax'>Ajax Test</a></li>
+			<li><a href='load_file.ax'>Ajax load by type</a></li>
+			<li><a href='interface_doc.ax'>Ajax Interface Doc</a></li>
+			<li><a href='interface_node.ax'>Ajax Interface Node</a></li>
+			<li><a href='interface_ele.ax'>Ajax Interface Ele</a></li>
+			<li><a href='element_add.ax'>Ajax Interface Ele add | remove</a></li>
 		</ul>
 	</div>
 

@@ -19,7 +19,7 @@
 		var xhr = new XMLHttpRequest();
 		
 		btnText.onclick = function () {
-			xhr.open('get', '/views/ajax/test.txt');
+			xhr.open('get', '/views/ajax/component/test.txt');
 			xhr.send();
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
@@ -31,7 +31,7 @@
 			}
 		}
 		btnHtml.onclick = function () {
-			xhr.open('get', '/views/ajax/test.html');
+			xhr.open('get', '/views/ajax/component/test.html');
 			xhr.send();
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
@@ -45,7 +45,7 @@
 			var dan = prompt('(구구단)출력할 단수를 입력하세요');
 			if (dan == '' || dan == null) return;
 			
-			xhr.open('get', '/views/ajax/test.jsp?dan=' + dan);
+			xhr.open('get', '/views/ajax/component/test.jsp?dan=' + dan);
 			xhr.send();
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
@@ -56,7 +56,7 @@
 			}
 		}
 		btnXml.onclick = function () {
-			xhr.open('get', '/views/ajax/guestbook_xml.jsp');
+			xhr.open('get', '/views/ajax/component/guestbook_xml.jsp');
 			xhr.send();
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
@@ -84,7 +84,7 @@
 			}
 		}
 		btnJson.onclick = function () {
-			xhr.open('get', '/views/ajax/guestbook_json.jsp');
+			xhr.open('get', '/views/ajax/component/guestbook_json.jsp');
 			xhr.send();
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4 && xhr.status == 200) {
