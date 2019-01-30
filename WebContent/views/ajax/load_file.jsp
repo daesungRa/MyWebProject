@@ -55,8 +55,61 @@
 				}
 			}
 		}
-		btnXml.onclick = function () { }
-		btnJson.onclick = function () { }
+		btnXml.onclick = function () {
+			xhr.open('get', '/views/ajax/guestbook_xml.jsp');
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var data = xhr.responseXML;
+					var result = get('result');
+					var list = data.getElementsByTagName('book'); // 추후 parser 를 사용하면 편하다
+					var str = '';
+					for (var i = 0; i < list.length; i++) {
+						var book = list.item(i);
+						var serial = getElement(book, 'serial');
+						var id = getElement(book, 'id');
+						var content = getElement(book, 'content');
+						var mDate = getElement(book, 'mDate');
+						
+						str += '<ul>';
+						str += '<li> Serial : ' + serial + '</li>';
+						str += '<li> ID : ' + id + '</li>';
+						str += '<li> Content : ' + content + '</li>';
+						str += '<li> mDate : ' + mDate + '</li>';
+						str += '</ul>';
+					}
+					
+					result.innerHTML = str;
+				}
+			}
+		}
+		btnJson.onclick = function () {
+			xhr.open('get', '/views/ajax/guestbook_json.jsp');
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var data = xhr.responseText;
+					var result = get('result');
+					var list = JSON.parse(data);
+					var str = '';
+					
+					for (var i = 0; i < list.length; i++) {
+						str += '<ul>';
+						str += '<li> Serial : ' + list[i].serial + '</li>';
+						str += '<li> ID : ' + list[i].id + '</li>';
+						str += '<li> Content : ' + list[i].content + '</li>';
+						str += '<li> mDate : ' + list[i].mDate + '</li>';
+						str += '</ul>'
+					}
+					
+					result.innerHTML = str;
+				}
+			}
+		}
+		
+		function getElement (obj, item) {
+			return obj.getElementsByTagName(item).item(0).firstChild.nodeValue;
+		}
 	}
 </script>
 </head>
