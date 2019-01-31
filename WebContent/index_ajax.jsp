@@ -17,6 +17,7 @@
 			<li><a href='interface_node.ax'>Ajax Interface Node</a></li>
 			<li><a href='interface_ele.ax'>Ajax Interface Ele</a></li>
 			<li><a href='element_add.ax'>Ajax Interface Ele add | remove</a></li>
+			<li><a href='employee_info.ax'>employee_info.jsp</a></li>
 		</ul>
 	</div>
 

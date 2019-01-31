@@ -5,134 +5,111 @@
 <head>
 <meta charset="UTF-8">
 <title>Element Add or Remove Page</title>
-<script>
-	function get (id) {
-		return document.getElementById(id);
+<style>
+	#main {
+	
 	}
-	function mainLoadFile () {
-		var btnText = get('btnText');
-		var btnHtml = get('btnHtml');
-		var btnJsp = get('btnJsp');
-		var btnXml = get('btnXml');
-		var btnJson = get('btnJson');
-		
-		var xhr = new XMLHttpRequest();
-		
-		btnText.onclick = function () {
-			xhr.open('get', '/views/ajax/component/test.txt');
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					var data = xhr.responseText;
-					data = data.replace(/\n/g, '<br/>');
-					var result = get('result');
-					result.innerHTML = data;
-				}
-			}
-		}
-		btnHtml.onclick = function () {
-			xhr.open('get', '/views/ajax/component/test.html');
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					var data = xhr.responseText;
-					var result = get('result');
-					result.innerHTML = data;
-				}
-			}
-		}
-		btnJsp.onclick = function () {
-			var dan = prompt('(구구단)출력할 단수를 입력하세요');
-			if (dan == '' || dan == null) return;
-			
-			xhr.open('get', '/views/ajax/component/test.jsp?dan=' + dan);
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					var data = xhr.responseText;
-					var result = get('result');
-					result.innerHTML = data;
-				}
-			}
-		}
-		btnXml.onclick = function () {
-			xhr.open('get', '/views/ajax/component/guestbook_xml.jsp');
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					var data = xhr.responseXML;
-					var result = get('result');
-					var list = data.getElementsByTagName('book'); // 추후 parser 를 사용하면 편하다
-					var str = '';
-					for (var i = 0; i < list.length; i++) {
-						var book = list.item(i);
-						var serial = getElement(book, 'serial');
-						var id = getElement(book, 'id');
-						var content = getElement(book, 'content');
-						var mDate = getElement(book, 'mDate');
-						
-						str += '<ul>';
-						str += '<li> Serial : ' + serial + '</li>';
-						str += '<li> ID : ' + id + '</li>';
-						str += '<li> Content : ' + content + '</li>';
-						str += '<li> mDate : ' + mDate + '</li>';
-						str += '</ul>';
-					}
-					
-					result.innerHTML = str;
-				}
-			}
-		}
-		btnJson.onclick = function () {
-			xhr.open('get', '/views/ajax/component/guestbook_json.jsp');
-			xhr.send();
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState == 4 && xhr.status == 200) {
-					var data = xhr.responseText;
-					var result = get('result');
-					var list = JSON.parse(data);
-					var str = '';
-					
-					for (var i = 0; i < list.length; i++) {
-						str += '<ul>';
-						str += '<li> Serial : ' + list[i].serial + '</li>';
-						str += '<li> ID : ' + list[i].id + '</li>';
-						str += '<li> Content : ' + list[i].content + '</li>';
-						str += '<li> mDate : ' + list[i].mDate + '</li>';
-						str += '</ul>'
-					}
-					
-					result.innerHTML = str;
-				}
-			}
-		}
-		
-		function getElement (obj, item) {
-			return obj.getElementsByTagName(item).item(0).firstChild.nodeValue;
-		}
+	#main #item1 {
+		width: 200px;
+		height: 300px;
+		border: 1px solid black;
+		margin: 10px 0 5px 30px;
 	}
-</script>
+	#main #item2 {
+		width: 200px;
+		height: 300px;
+		border: 1px solid black;
+		margin: 5px 0 0 30px;
+	}
+</style>
 </head>
 <body>
 
-	<div id='loadFile'>
-		<h2>Load File Page</h2>
-		<p>XMLHttpRequest 를 통해 text, html, jsp, xml, json 타입의 문서를 읽어 result 영역에 표시해 본다</p>
+	<div id='domElementAddTest'>
+		<h2>Element Add or Remove Page</h2>
+		<div id='info'>항목을 선택하면 동적으로 select 태그와 option 태그를 생성</div>
 		
-		<div id='btnZone'>
-			<input type='button' value='TEXT' id='btnText' />
-			<input type='button' value='HTML' id='btnHtml' />
-			<input type='button' value='JSP' id='btnJsp' />
-			<input type='button' value='XML' id='btnXml' />
-			<input type='button' value='JSON' id='btnJson' />
-		</div>
-		<br/>
-		<div id='result'>
-			읽어들인 문서가 표시될 곳
+		<div id='main'>
+			<div id='item1'>
+				<select size='5' id='item1_sel'>
+					<option>산이름</option>
+					<option>강이름</option>
+					<option>과일이름</option>
+					<option>0~9</option>
+					<option>10~19</option>
+				</select>
+			</div>
+			<div id='item2'>
+				<select size='10' id='item2_sel'></select>
+			</div>
 		</div>
 	</div>
 	
-	<script>mainLoadFile();</script>
+	<script>
+		var sel1 = document.getElementById('item1_sel');
+		var sel2 = document.getElementById('item2_sel');
+		
+		sel1.onchange = function () {
+			/* console.log('changed!');
+			console.log(sel[sel.selectedIndex].text); */
+			switch (sel1.selectedIndex) {
+			case 0:
+				mnts();
+				break;
+			case 1:
+				rivers();
+				break;
+			case 2:
+				fruits();
+				break;
+			case 3:
+				num(0);
+				break;
+			case 4:
+				num(1);
+				break;
+			}
+		}
+		sel2.onchange = function () {
+			
+		}
+		
+		function mnts () {
+			var m = ['백두산', '한라산', '치악산', '설악산', '속리산', '금강산', '내장산', '북한산'];
+			sel2.length = 0; // select 박스 내용을 초기화
+			for (var i = 0; i < m.length; i++) {
+				var op = new Option(m[i], m[i]);
+				sel2.options[i] = op;
+			}
+		}
+		function rivers () {
+			var r = ['한강', '두만강', '낙동강', '금강', '소금강', '압록강', '요단강', '섬진강'];
+			sel2.length = 0;
+			for (var i = 0; i < r.length; i++) {
+				var op = new Option(r[i], r[i]);
+				sel2.options[i] = op;
+			}
+		}
+		function fruits () {
+			var r = ['딸기', '사과', '오렌지', '배', '귤', '메론', '참외', '바나나', '수박', '두리안', '복숭아', '석류', '망고'];
+			sel2.length = 0;
+			for (var i = 0; i < r.length; i++) {
+				var op = new Option(r[i], r[i]);
+				sel2.options[i] = op;
+			}
+		}
+		function num (num) {
+			var arr = [
+						[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+						[10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+					];
+			sel2.length = 0;
+			for (var i = 0; i < arr[num].length; i++) {
+				var op = new Option(arr[num][i], arr[num][i]);
+				sel2.options[i] = op;
+			}
+		}
+	</script>
 
 </body>
 </html>

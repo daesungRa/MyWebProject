@@ -33,6 +33,9 @@
 		<label>
 			<input type='radio' name='gender' />여자
 		</label>
+		<label>
+			<input type='radio' name='gender' />속성삭제
+		</label>
 		
 		<h3>Result Area</h3>
 		<div id='result'></div>
@@ -59,6 +62,10 @@
 			att2.nodeValue = 'color_m'; // 속성값 지정
 			bodyResult.setAttributeNode(att1); // 원하는 위치에 속성 세팅
 			result.setAttributeNode(att2); // 원하는 위치에 속성 세팅
+		}
+		buttons[2].onclick = function () {
+			bodyResult.removeAttribute('class');
+			result.removeAttribute('class');
 		}
 	</script>
 
