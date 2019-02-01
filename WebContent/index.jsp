@@ -8,27 +8,7 @@
 <title>메인 페이지</title>
 <link rel='stylesheet' href='./css/index_large.css' media='screen and (min-width: 800px)' />
 <link rel='stylesheet' href='./css/index_mini.css' media='screen and (max-width: 799px)' />
-<script>
-	function indexMain () {
-		var btnLogin = document.getElementById('btnLogin');
-		var btnLogout = document.getElementById('btnLogout');
-		var header = document.getElementById('title');
-		
-		if (btnLogin != null) {
-			btnLogin.onclick = function () {
-				location.href = 'index.jsp?content=./views/member/login.jsp';
-			}
-		}
-		if (btnLogout != null) {
-			btnLogout.onclick = function () {
-				location.href = './views/member/logout.jsp';
-			}
-		}
-		header.onclick = function () {
-			location.href = 'index.jsp?aside=./views/intro.jsp&content=./views/intro.jsp';
-		}
-	}
-</script>
+<script src='/js/guestbook.js'></script>
 </head>
 <body>
 	
@@ -56,6 +36,7 @@
 		<c:if test="${sessionScope.id == null }">
 			<input type='button' id='btnLogin' value='login' />
 		</c:if>
+		<input type='hidden' id='sessionId' value='${sessionScope.id }' />
 	</div>
 	
 	<%@ include file="./views/main/header.jsp" %>
@@ -65,6 +46,7 @@
 			<jsp:include page="<%=component %>" />
 		</div><br/>
 		<ul id='menu'>
+			<li><a href='#' id='guestbook'>방명록</a></li>
 			<li>HTML</li>
 			<li>CSS3</li>
 			<li>JS</li>
@@ -81,14 +63,10 @@
 	</nav>
 	<section id='wrap'>
 		<aside id='aside'>
-			<h1>
 				<jsp:include page="<%=aside %>" />
-			</h1>
 		</aside>
 		<article id='content'>
-			<h1>
 				<jsp:include page="<%=content %>" />
-			</h1>
 		</article>
 	</section>
 	

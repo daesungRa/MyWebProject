@@ -19,11 +19,11 @@ import com.myweb.guestbookDao.GuestBookDaoImpl;
 /**
  * Servlet implementation class GuestBookServlet
  */
-@WebServlet("*.gb")
-public class GuestBookServlet extends HttpServlet {
+@WebServlet("*.gbOri")
+public class GuestBookServletOri extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GuestBookServlet() {
+    public GuestBookServletOri() {
         super();
     }
 
@@ -34,11 +34,9 @@ public class GuestBookServlet extends HttpServlet {
 		response.setContentType("text/html;charset-utf-8");
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
-		doPost(request, response);
 		
-		/*
 		// 응답할 페이지 요소
-		String url = "/index.jsp?content=/views/guestbook/";
+		String url = "/index.jsp?aside=/control.jsp&content=/views/guestbook/";
 		String page = request.getRequestURI();
 		page = page.substring(page.lastIndexOf("/") + 1, page.lastIndexOf("."));
 		System.out.println("page: " + page);
@@ -66,7 +64,7 @@ public class GuestBookServlet extends HttpServlet {
 		// servlet 을 사용하여 웹 페이지를 forward
 		page = "viewGuestbook";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url + page + ".jsp");
-		dispatcher.forward(request, response);*/
+		dispatcher.forward(request, response);
 	}
 
     /*
@@ -81,7 +79,7 @@ public class GuestBookServlet extends HttpServlet {
 		int nowPage = 1;
 		
 		// 응답할 페이지 요소
-		String url = "/index.jsp?aside=/index_guestbook.jsp&content=/views/guestbook/";
+		String url = "/index.jsp?aside=/control.jsp&content=/views/guestbook/";
 		String page = request.getRequestURI();
 		page = page.substring(page.lastIndexOf("/") + 1, page.lastIndexOf("."));
 		System.out.println("page: " + page);
@@ -89,9 +87,7 @@ public class GuestBookServlet extends HttpServlet {
 		// 요청 페이지에 따른 메서드 처리
 		GuestBookDaoImpl dao = new GuestBookDaoImpl();
 		List<GuestBookVo> data = null;
-		if (page.equals("viewGuestBook")) {
-			
-		} else if (page.equals("list")) {
+		if (page.equals("list")) {
 			String search = request.getParameter("search");
 			if (request.getParameter("nowPage") != null) {
 				nowPage = Integer.parseInt(request.getParameter("nowPage"));
