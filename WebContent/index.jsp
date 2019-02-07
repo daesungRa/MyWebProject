@@ -8,7 +8,9 @@
 <title>메인 페이지</title>
 <link rel='stylesheet' href='./css/index_large.css' media='screen and (min-width: 800px)' />
 <link rel='stylesheet' href='./css/index_mini.css' media='screen and (max-width: 799px)' />
-<script src='/js/guestbook.js'></script>
+<link rel='stylesheet' href='/css/custom.css' />
+
+<script src='/js/custom.js'></script>
 </head>
 <body>
 	
@@ -47,6 +49,7 @@
 		</div><br/>
 		<ul id='menu'>
 			<li><a href='#' id='guestbook'>방명록</a></li>
+			<li><a href='list.brd'>게시판</a></li>
 			<li>HTML</li>
 			<li>CSS3</li>
 			<li>JS</li>

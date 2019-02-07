@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+/*
+ * board list page / refer by index.jsp
+ */
+#boardListPage {
+	width: 100%;
+	margin: 100px auto;
+}
+#boardListPage #boardTitle {
+	font-size: 16pt;
+}
+#boardListPage #boardTitle #damuni {
+	width: 50px;
+	float: left;
+	margin-right: 10px;
+}
+#boardListPage #boardSearchForm {
+	text-align: right;
+}
+#boardListPage #boardSubjectArea {
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	margin-top: 5px;
+	padding: 10px 0 10px 0;
+	font-size: 14pt;
+}
+#boardListPage span {
+	display: inline-block;
+}
+#boardListPage .boardList:hover {
+	background: #999999;
+}
+#boardListPage .boardNo {
+	width: 8%;
+}
+#boardListPage .boardSubject {
+	width: 30%;
+	cursor: pointer;
+}
+#boardListPage .boardId {
+	width: 13%;
+}
+#boardListPage .bDate {
+	width: 28%;
+}
+#boardListPage .hit {
+	width: 11%;
+}
+#boardListPage .boardList {
+	padding: 5px 0 5px 0;
+}
+#boardListPage #boardBtnZone {
+	border-top-style: solid;
+	border-top-width: 1px;
+	margin: 5px auto;
+	text-align: center;
+}
+#boardListPage #boardBtnZone input[type=button] {
+	margin-right: 5px;
+}
+#boardListPage #boardBtnZone .btnCircle {
+	border-radius: 20px;
+}
+#moveBoardInsert {
+	text-align: right;
+	margin: 0 20px 10px 0;
+}
+
+/*
+ * board insert page / refer by index.jsp
+ */
+ 

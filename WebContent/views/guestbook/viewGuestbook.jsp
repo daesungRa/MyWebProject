@@ -78,19 +78,19 @@
 			</c:if>
 			
 			<div id='btnZone'>
-			<c:if test="${pageScope.nowBlock > 1 }">
-				<input type='button' value='HEAD' onclick='movePage(1)' />
-				<input type='button' value='PRE' onclick='movePage(${pageScope.startPage - 1})' />
-			</c:if>
-			
-			<c:forEach var="j" begin="${pageScope.startPage}" end="${pageScope.endPage}" step="1">
-				<input class='btnCircle' type='button' value='${j }' onclick='movePage(${j })' ${(pageScope.nowPage == j)? "disabled" : "" } />
-			</c:forEach>
-			<c:if test="${pageScope.nowBlock < pageScope.totBlock }">
-				<input type='button' value='NEXT' onclick='movePage(${pageScope.endPage + 1})' />
-				<input type='button' value='TAIL' onclick='movePage(${pageScope.totPage})' />
-			</c:if>
-		</div>
+				<c:if test="${pageScope.nowBlock > 1 }">
+					<input type='button' value='HEAD' onclick='movePage(1)' />
+					<input type='button' value='PRE' onclick='movePage(${pageScope.startPage - 1})' />
+				</c:if>
+				
+				<c:forEach var="j" begin="${pageScope.startPage}" end="${pageScope.endPage}" step="1">
+					<input class='btnCircle' type='button' value='${j }' onclick='movePage(${j })' ${(pageScope.nowPage == j)? "disabled" : "" } />
+				</c:forEach>
+				<c:if test="${pageScope.nowBlock < pageScope.totBlock }">
+					<input type='button' value='NEXT' onclick='movePage(${pageScope.endPage + 1})' />
+					<input type='button' value='TAIL' onclick='movePage(${pageScope.totPage})' />
+				</c:if>
+			</div>
 		</fieldset>
 	</div>
 
