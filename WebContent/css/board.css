@@ -72,4 +72,26 @@
 /*
  * board insert page / refer by index.jsp
  */
- 
+#attFile_zone {
+	overflow: hidden;
+	margin-left : 2px;
+	margin-bottom : 40px;
+}
+#attfile_zone > div {
+	position: relative;
+	cursor : pointer;
+	float : left;
+	margin : 5px;
+	border : 2px dashed #aaaaaa;
+}
+#attfile_zone > div .delFile{
+	position: absolute;
+	bottom : 2px;
+	right : 2px;
+	width : 40px;
+	height : 40px;
+	opacity: 0.4;
+	font-size : 35px;
+	background: rgba(200,200,200,0.5);
+	border : 0;
+}

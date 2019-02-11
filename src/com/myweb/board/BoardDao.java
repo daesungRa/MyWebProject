@@ -73,4 +73,71 @@ public class BoardDao {
 		
 		return list;
 	}
+	
+	public BoardVo view (int serial) {
+		BoardVo vo = null;
+		
+		try {
+			sql = " update custom_board set hit = hit + 1 where serial = ? ";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, serial);
+			int result = ps.executeUpdate();
+			
+			if (result > 0) {
+				System.out.println(serial + " 번 글의 조회수 증가");
+				ps.close();
+				
+				sql = " select * from custom_board where serial = ? ";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, serial);
+				rs = ps.executeQuery();
+				
+				if (rs.next()) {
+					vo = new BoardVo();
+					vo.setSerial(rs.getInt("serial"));
+					vo.setGno(rs.getInt("gno"));
+					vo.setPno(rs.getInt("pno"));
+					vo.setDepth(rs.getInt("depth"));
+					vo.setIndent(rs.getInt("indent"));
+					vo.setUserId(rs.getString("userId"));
+					vo.setSubject(rs.getString("subject"));
+					vo.setContent(rs.getString("content"));
+					vo.setHit(rs.getInt("hit"));
+					vo.setbDate(rs.getString("bDate"));
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeSet();
+		}
+		
+		return vo;
+	}
+	
+	public boolean insert (BoardVo vo) {
+		boolean result = false;
+		
+		sql = " insert into custom_board (serial, gno, pno, depth, indent, userId, userPwd, subject, content, hit, bDate) "
+				+ "	values (SEQ_CUSBOARD.nextval, SEQ_CUSBOARD.currval, 0, 0, 0, ?, ?, ?, ?, 1, sysdate) ";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, vo.getUserId());
+			ps.setString(2, vo.getUserPwd());
+			ps.setString(3, vo.getSubject());
+			ps.setString(4, vo.getContent());
+			int i = ps.executeUpdate();
+			
+			if (i > 0) {
+				result = true;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			closeSet();
+		}
+		
+		return result;
+	}
 }

@@ -9,6 +9,10 @@
 </head>
 <body>
 
+	<c:if test="${not empty requestScope.msg }">
+		<script>alert(${requestScope.msg});</script>
+	</c:if>
+
 	<c:if test="${not empty requestScope.list }">
 		<c:set var="list" value="${requestScope.list }" ></c:set>
 		<c:set var="pageDto" value="${requestScope.pageDto }" ></c:set>
@@ -24,10 +28,11 @@
 		<div id='boardSearchForm'>
 			<form name='boardFrm' method='post' enctype='multipart/form-data'>
 				<input type='search' name='search' value='${(requestScope.search == null)? "" : requestScope.search }' />
-				<input type='button' name='btnSearch' onclick='searchBoard(0)' value='검색' />
-				<input type='button' name='btnSearchAll' onclick='searchBoard(1)' value='전체검색' />
+				<input type='button' name='btnSearch' onclick='funcBoardSearch(0)' value='검색' />
+				<input type='button' name='btnSearchAll' onclick='funcBoardSearch(1)' value='전체검색' />
 				<input type='hidden' name='id' value='' />
 				<input type='hidden' name='nowPage' value='${(requestScope.nowPage == null)? 1 : param.nowPage }' />
+				<input type='hidden' name='serial' value='0' />
 				<input type='hidden' name='email' value='' />
 			</form>
 		</div>
@@ -54,7 +59,7 @@
 					<c:set var='vo' value='${list[i] }' scope='page'></c:set>
 					<div class='boardList'>
 						<span class='boardNo'>${vo.serial }</span>
-						<span class='boardSubject'>
+						<span class='boardSubject' onclick='funcBoardView(${i})'>
 							<c:choose>
 								<c:when test="${vo.indent == 0 }">
 									${vo.subject }
@@ -68,7 +73,7 @@
 						<span class='boardId'>${vo.userId }</span>
 						<span class='bDate'>${vo.bDate }</span>
 						<span class='hit'>${vo.hit }</span>
-					</div>		
+					</div>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
@@ -76,22 +81,22 @@
 		<!-- 페이징 -->
 		<div id='boardBtnZone'>
 			<c:if test="${pageDto.nowBlock > 1 }">
-				<input type='button' value='HEAD' onclick='movePage(1)' />
-				<input type='button' value='PRE' onclick='movePage(${pageDto.startPage - 1})' />
+				<input type='button' value='HEAD' onclick='funcBoardPage(1)' />
+				<input type='button' value='PRE' onclick='funcBoardPage(${pageDto.startPage - 1})' />
 			</c:if>
 			<c:forEach var="k" begin="${pageDto.startPage}" end="${pageDto.endPage}" step="1">
-				<input class='btnCircle' type='button' value='${k }' onclick='movePage(${k })' ${(pageDto.nowPage == k)? "disabled" : "" } />
+				<input class='btnCircle' type='button' value='${k }' onclick='funcBoardPage(${k })' ${(pageDto.nowPage == k)? "disabled" : "" } />
 			</c:forEach>
 			<c:if test="${pageDto.nowBlock < pageDto.totBlock }">
-				<input type='button' value='NEXT' onclick='movePage(${pageDto.nowPage + 1})' />
-				<input type='button' value='TAIL' onclick='movePage(${pageDto.totPage})' />
+				<input type='button' value='NEXT' onclick='funcBoardPage(${pageDto.nowPage + 1})' />
+				<input type='button' value='TAIL' onclick='funcBoardPage(${pageDto.totPage})' />
 			</c:if>
 		</div>
 		
 	</div><br/>
 	
 	<div id='moveBoardInsert'>
-		<input type='button' id='moveBoardInsert' value='게시글 쓰기' />
+		<input type='button' id='moveBoardInsert' value='게시글 쓰기' onclick='funcBoardInsert();'/>
 	</div>
 
 </body>

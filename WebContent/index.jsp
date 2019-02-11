@@ -8,9 +8,12 @@
 <title>메인 페이지</title>
 <link rel='stylesheet' href='./css/index_large.css' media='screen and (min-width: 800px)' />
 <link rel='stylesheet' href='./css/index_mini.css' media='screen and (max-width: 799px)' />
-<link rel='stylesheet' href='/css/custom.css' />
+<link rel='stylesheet' href='/css/member.css' />
+<link rel='stylesheet' href='/css/board.css' />
 
-<script src='/js/custom.js'></script>
+<script src='/js/guestbook.js'></script>
+<script src='/js/member.js'></script>
+<script src='/js/board.js'></script>
 </head>
 <body>
 	
