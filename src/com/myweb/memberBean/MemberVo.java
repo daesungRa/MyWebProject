@@ -167,4 +167,21 @@ public class MemberVo {
 		this.nowPage = nowPage;
 	}
 
+	public String toJson() {
+		return "MemberVo [id=" + id + ", irum=" + irum + ", pwd=" + pwd + ", email=" + email + ", phone=" + phone
+				+ ", rdate=" + rdate + ", postal=" + postal + ", address=" + address + ", photo=" + photo
+				+ ", photoOri=" + photoOri + ", grade=" + grade + ", search=" + search + ", nowPage=" + nowPage + "]";
+	}
+	
+	public String toListJson() {
+		String str = String.format(
+							"{\"id\":\"%s\","
+							+ " \"irum\":\"%s\","
+							+ " \"phone\":\"%s\","
+							+ " \"email\":\"%s\"}", id, irum, phone, email);
+		return str;
+	}
+	
+	
+
 }

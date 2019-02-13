@@ -14,6 +14,20 @@
 <script src='/js/guestbook.js'></script>
 <script src='/js/member.js'></script>
 <script src='/js/board.js'></script>
+<script src='/js/jquery-3.3.1.min.js'></script>
+<script>
+	$(document).ready(function () {
+		$('#aside').css({"display":"none"});
+		$('#asideBar').click(function () {
+			$('#aside').animate({width:'toggle'}, 350);
+			if ($('#asideBar').val() == '>>') {
+				$('#asideBar').val('<<');
+			} else if ($('#asideBar').val() == '<<') {
+				$('#asideBar').val('>>');
+			}
+		});
+	});
+</script>
 </head>
 <body>
 	
@@ -57,8 +71,8 @@
 			<li>CSS3</li>
 			<li>JS</li>
 			<li><a href='index.jsp?aside=./index_ajax.jsp'>Ajax</a></li>
+			<li><a href='index.jsp?aside=./index_jquery.jsp'>jQuery</a></li>
 			<li>MyBatis</li>
-			<li>jQuery</li>
 			<li><a href='index.jsp?aside=./index_el.jsp'>EL</a></li>
 			<li><a href='index.jsp?aside=./index_jstl.jsp'>JSTL</a></li>
 			<li><a href="index.jsp?aside=./index_jsp.jsp">JSP</a></li>
@@ -71,6 +85,7 @@
 		<aside id='aside'>
 				<jsp:include page="<%=aside %>" />
 		</aside>
+		<input type='button' id='asideBar' value='>>' style='display: inline-block;'/>
 		<article id='content'>
 				<jsp:include page="<%=content %>" />
 		</article>
