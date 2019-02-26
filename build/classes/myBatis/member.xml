@@ -6,7 +6,7 @@
 <mapper namespace="member">
 	<resultMap type="com.myweb.memberBean.MemberVo" id="member_map">
 		<result property="id" column="id" />
-		<result property="irum" column="name" />
+		<result property="irum" column="irum" />
 		<result property="pwd" column="pwd" />
 		<result property="email" column="email" />
 		<result property="phone" column="phone" />
